@@ -1,3 +1,5 @@
+package entities_;
+
 import java.util.Date;
 
 public class Review {
