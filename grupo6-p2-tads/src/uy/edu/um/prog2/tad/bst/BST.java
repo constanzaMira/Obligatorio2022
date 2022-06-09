@@ -11,7 +11,10 @@ public class BST<K extends Comparable<K>,T> implements MyBST<K,T> {
         this.root = root;
     }
 
-    private NodeBST<K,T> insert (K key, T data, NodeBST<K,T> root){
+    private NodeBST<K,T> insert (K key, T data, NodeBST<K,T> root) throws NoExisteKey{
+        if (key==null){
+            throw new NoExisteKey();
+        }
         NodeBST result= null;
         NodeBST<K,T> newNode= new NodeBST<>(key,data);
         if (root==null){
@@ -26,7 +29,10 @@ public class BST<K extends Comparable<K>,T> implements MyBST<K,T> {
         return result;
     }
 
-    private NodeBST<K,T> delete (K key,NodeBST<K,T> root) {
+    private NodeBST<K,T> delete (K key,NodeBST<K,T> root) throws NoExisteKey {
+        if(key==null){
+            throw new NoExisteKey();
+        }
         if (this.root == null) {
             //nada para hacer retorna lo mismo
         } if (key.compareTo(root.getKey()) < 0) {//si la key< a la root.getkey
@@ -87,7 +93,11 @@ public class BST<K extends Comparable<K>,T> implements MyBST<K,T> {
 
     @Override
     public void insertar(K key, T data) {
-        root= insert(key,data,this.root);
+        try {
+            root= insert(key,data,this.root);
+        } catch (NoExisteKey e) {
+
+        }
 
     }
 
