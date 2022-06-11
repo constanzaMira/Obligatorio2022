@@ -15,6 +15,7 @@ public class MyBinarySearchTreeTest {
         bst.insertar(9,10);
         bst.insertar(50,8);
         bst.insertar(75,79);
+        bst.insertar(null,null);
         try {
             Assertions.assertEquals(3,bst.find(2));
         } catch (ArbolVacio e) {

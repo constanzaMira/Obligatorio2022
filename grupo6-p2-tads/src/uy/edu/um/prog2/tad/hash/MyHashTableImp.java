@@ -27,7 +27,10 @@ public class MyHashTableImp<K extends Comparable<K>,V> implements HashTable<K,V>
 
 
     @Override
-    public void put(K key, V value) {
+    public void put(K key, V value) throws IllegalAccessException{
+        if(key==null || value==null){
+            throw new IllegalAccessException();
+        }
             //aplicar funcion de hash a la key para determinar posicion
         int position= Math.abs(key.hashCode())% elements.length;   //lo que me devuelve el hash code aplico el modulo del tamano de tabla
                                                     //llama a la funcion hashcode del objeto que yo pase como primer argumento(k.hashcode)
@@ -59,10 +62,12 @@ public class MyHashTableImp<K extends Comparable<K>,V> implements HashTable<K,V>
         }
 
 
-    public V get(K key){
+    public V get(K key) throws IllegalAccessException{
         int position= Math.abs(key.hashCode())% elements.length;
         V exit= null;
-
+        if (key==null){
+            throw new IllegalAccessException();
+        }
         if(this.elements[position]!=null){//estoy accediendo a una posicion de una clave que tiene algo
             if(!this.elements[position].isDelete() && this.elements[position].getKey().equals(key)){//encontre valor
                 exit= this.elements[position].getValue();
@@ -91,12 +96,17 @@ public class MyHashTableImp<K extends Comparable<K>,V> implements HashTable<K,V>
 
     @Override
     public boolean contains(K key) {
-        if(get(key)!=null){
-            return true;
-        }else{
-            return false;
+        try {
+            if(get(key)!=null){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (IllegalAccessException e) {
+
         }
 
+        return false;
     }
 
     @Override

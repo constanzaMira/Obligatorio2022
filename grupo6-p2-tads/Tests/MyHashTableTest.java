@@ -9,20 +9,49 @@ public class MyHashTableTest {
     @Test
     void testPut(){
         HashTable<Integer,Integer> hash = new MyHashTableImp<>();
-        hash.put(3,4);
-        hash.put(5,6);
-        hash.put(9,8);
-        Assertions.assertEquals(8,hash.get(9));
+        try {
+            hash.put(3,4);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(5,6);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(9,8);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            Assertions.assertEquals(8,hash.get(9));
+        } catch (IllegalAccessException e) {
+
+        }
         Assertions.assertEquals(false, hash.contains(7));
-        // como hago para usar la funcion get pra comparar la key con el value
+        try {
+            hash.put(null,null);
+        } catch (IllegalAccessException e) {
+        }
     }
+
     @Test
     void testContains(){
         HashTable<Integer,Integer> hash = new MyHashTableImp<>();
-        hash.put(3,4);
-        hash.put(5,6);
-        hash.put(9,8);
-        hash.put(30,26);
+        try {
+            hash.put(3,4);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(5,6);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(9,8);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(30,26);
+        } catch (IllegalAccessException e) {
+        }
         Assertions.assertEquals(true,hash.contains(30));
         Assertions.assertEquals(false,hash.contains(7));
     }
@@ -30,24 +59,60 @@ public class MyHashTableTest {
     @Test
     void testSize(){
         HashTable<Integer,Integer> hash = new MyHashTableImp<>();
-        hash.put(3,4);
-        hash.put(5,6);
-        hash.put(9,8);
-        hash.put(30,26);
-        hash.put(6,14);
-        hash.put(90,65);
-        hash.put(34,7);
-        hash.put(22,1);
+        try {
+            hash.put(3,4);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(5,6);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(9,8);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(30,26);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(6,14);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(90,65);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(34,7);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(22,1);
+        } catch (IllegalAccessException e) {
+        }
         Assertions.assertEquals(8,hash.size());
     }
 
     @Test
     void testRemove(){
         HashTable<Integer,Integer> hash = new MyHashTableImp<>();
-        hash.put(3,4);
-        hash.put(5,6);
-        hash.put(9,8);
-        hash.put(30,26);
+        try {
+            hash.put(3,4);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(5,6);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(9,8);
+        } catch (IllegalAccessException e) {
+        }
+        try {
+            hash.put(30,26);
+        } catch (IllegalAccessException e) {
+        }
 
         try {
             hash.remove(9);
