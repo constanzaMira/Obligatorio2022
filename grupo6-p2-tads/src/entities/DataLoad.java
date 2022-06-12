@@ -1,12 +1,11 @@
+package entities;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Date;
 
-public class Main {
-
+public class DataLoad {
     public static void main(String[] args) throws IOException {
 
         String file = "E:\\Copias de Seguridad\\Facultad\\3er Semestre\\Programación 2\\Repositorios\\Obligatorio\\Url\\src\\beer_dataset_test.csv";

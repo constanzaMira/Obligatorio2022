@@ -1,8 +1,23 @@
 package entities;
 
+import uy.edu.um.prog2.tad.linkedlist.LinkedList;
+import uy.edu.um.prog2.tad.linkedlist.MyList;
+
 public class Brewery {// son las casas de cerveza
 
-    //tiene que tener una lista? de cervezas
+    private MyList<Beer> beers = new LinkedList<>();
+
+    public MyList<Beer> getBeers() {
+        return beers;
+    }
+
+    public void setBeers(MyList<Beer> beers) {
+        this.beers = beers;
+    }
+
+    public Brewery(MyList<Beer> beers) {
+        this.beers = beers;
+    }
 
     private long id;
     private String name;
