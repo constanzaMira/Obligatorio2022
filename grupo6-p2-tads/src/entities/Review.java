@@ -7,13 +7,31 @@ import java.util.Date;
 public class Review {
     //private HashNode<>[] elements;
     //un user tiene una lista? de reviews
-
     private long id;
     private Date date;
     private double overallScore;
     private double appearanceScore;
     private double aromaScore;
     private double flavourScore;
+    private User user;
+
+    private Brewery brewery;
+
+    public Brewery getBrewery() {
+        return brewery;
+    }
+
+    public void setBrewery(Brewery brewery) {
+        this.brewery = brewery;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Review(long id, Date date, double overallScore, double appearanceScore,
                   double aromaScore, double flavourScore) {
