@@ -1,25 +1,25 @@
 package entities;
 
 public class User {
-    private String name;
+    private String userName;
 
-    public String getName() {
-        return name;
+    public User(String userName) {
+        this.userName = userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getUserName() {
+        return userName;
     }
 
-    public User(String name) {
-        this.name = name;
+    public void setUserName(String name) {
+        this.userName = name;
     }
 
     public boolean equals(Object obj) {
         boolean exit = false;
         if (obj instanceof User){
             User tmp = (User) obj;
-            exit = this.getName() == tmp.getName();
+            exit = this.getUserName() == tmp.getUserName();
             //exit = Objects.equals(this.getNld(), tmp.getNld());
         }
         return exit;

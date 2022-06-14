@@ -4,43 +4,36 @@ import uy.edu.um.prog2.tad.hash.HashNode;
 
 import java.util.Date;
 
-public class Review {
-    //private HashNode<>[] elements;
+public class Review implements Comparable<Review> {
     //un user tiene una lista? de reviews
     private long id;
+
     private Date date;
+
     private double overallScore;
+
     private double appearanceScore;
+
     private double aromaScore;
+
+    private double palateScore;
+
     private double flavourScore;
+
     private User user;
 
-    private Brewery brewery;
+    private String brewery;
 
-    public Brewery getBrewery() {
-        return brewery;
-    }
-
-    public void setBrewery(Brewery brewery) {
-        this.brewery = brewery;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Review(long id, Date date, double overallScore, double appearanceScore,
-                  double aromaScore, double flavourScore) {
+    public Review(long id, Date date, double overallScore, double appearanceScore, double aromaScore, double palateScore, double flavourScore, User user, String brewery) {
         this.id = id;
         this.date = date;
         this.overallScore = overallScore;
         this.appearanceScore = appearanceScore;
         this.aromaScore = aromaScore;
+        this.palateScore = palateScore;
         this.flavourScore = flavourScore;
+        this.user = user;
+        this.brewery = brewery;
     }
 
     public long getId() {
@@ -83,11 +76,56 @@ public class Review {
         this.aromaScore = aromaScore;
     }
 
+    public double getPalateScore() {
+        return palateScore;
+    }
+
+    public void setPalateScore(double palateScore) {
+        this.palateScore = palateScore;
+    }
+
     public double getFlavourScore() {
         return flavourScore;
     }
 
     public void setFlavourScore(double flavourScore) {
         this.flavourScore = flavourScore;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getBrewery() {
+        return brewery;
+    }
+
+    public void setBrewery(String brewery) {
+        this.brewery = brewery;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean exit = false;
+        if (obj instanceof Review){
+            Review tmp = (Review) obj;
+            exit = this.getId() == tmp.getId();
+            //exit = Objects.equals(this.getNld(), tmp.getNld());
+        }
+        return exit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(this.id);
+    }
+
+    @Override
+    public int compareTo(Review o) {
+        return 0;
     }
 }

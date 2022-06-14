@@ -2,27 +2,29 @@ package entities;
 
 
 import uy.edu.um.prog2.tad.linkedlist.LinkedList;
+import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 public class Beer {
     private long id;
     private String name;
-
     private Style style;
+    private double abv;
 
     // una cerveza tiene una lista? de reviews
     //una cerveza tiene una lista? de estilos
 
-    private uy.edu.um.prog2.tad.linkedlist.LinkedList<Review> reviews;
+    private MyList<Review> reviews = new LinkedList<>();
 
-    public LinkedList<Review> getReviews() {
+    public Beer(long id, String name, double abv) {
+        this.id = id;
+        this.name = name;
+        this.abv = abv;
+    }
+
+    public MyList<Review> getReviews() {
         return reviews;
     }
-
     public void setReviews(LinkedList<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public Beer(LinkedList<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -58,12 +60,8 @@ public class Beer {
         this.abv = abv;
     }
 
-    private double abv;
-
-    public Beer(long id, String name, double abv) {
-        this.id = id;
-        this.name = name;
-        this.abv = abv;
+    public void addReview(Review review) {
+        this.reviews.add(review);
     }
 
     public boolean equals(Object obj) {
@@ -74,5 +72,9 @@ public class Beer {
             //exit = Objects.equals(this.getNld(), tmp.getNld());
         }
         return exit;
+    }
+    @Override
+    public int hashCode() {
+        return Long.hashCode(this.id);
     }
 }

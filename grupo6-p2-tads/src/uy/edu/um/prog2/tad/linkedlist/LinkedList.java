@@ -234,6 +234,21 @@ public class LinkedList<T> implements MyList<T>, MyStack<T>, MyQueue<T>, MyDoubl
 
     }
 
+    @Override
+    public int getIndex(T value) {
+        int index = -1;
+
+        if (this.contains(value)) {
+            for (int i = 0; i < this.size; i++) {
+                if (this.get(i).equals(value)) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+
     private void addFirst(T value) {
         if (value != null) {
 

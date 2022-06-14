@@ -4,32 +4,14 @@ import uy.edu.um.prog2.tad.linkedlist.LinkedList;
 import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 public class Brewery {// son las casas de cerveza
-
-    private Beer beer;
-    private MyList<Beer> beers = new LinkedList<>();
-
-    public Beer getBeer() {
-        return beer;
-    }
-
-    public void setBeer(Beer beer) {
-        this.beer = beer;
-    }
-
-    public MyList<Beer> getBeers() {
-        return beers;
-    }
-
-    public void setBeers(MyList<Beer> beers) {
-        this.beers = beers;
-    }
-
-    public Brewery(MyList<Beer> beers) {
-        this.beers = beers;
-    }
-
     private long id;
     private String name;
+    private MyList<Beer> beers = new LinkedList<>();
+
+    public Brewery(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public long getId() {
         return id;
@@ -47,9 +29,16 @@ public class Brewery {// son las casas de cerveza
         this.name = name;
     }
 
-    public Brewery(long id, String name) {
-        this.id = id;
-        this.name = name;
+    public MyList<Beer> getBeers() {
+        return beers;
+    }
+
+    public void setBeers(MyList<Beer> beers) {
+        this.beers = beers;
+    }
+
+    public void addBeer(Beer beer) {
+        this.beers.add(beer);
     }
 
     public boolean equals(Object obj) {
@@ -60,5 +49,10 @@ public class Brewery {// son las casas de cerveza
             //exit = Objects.equals(this.getNld(), tmp.getNld());
         }
         return exit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(this.id);
     }
 }

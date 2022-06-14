@@ -1,6 +1,6 @@
 package uy.edu.um.prog2.tad.hash;
 
-public class HashNode<K extends Comparable<K>,V> {
+public class HashNode<K,V> {
     private K key;
     private V value;
 

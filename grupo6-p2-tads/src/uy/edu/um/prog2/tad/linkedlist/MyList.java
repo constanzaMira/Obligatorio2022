@@ -20,6 +20,8 @@ public interface MyList<T> {
 
     MyList<T> append(MyList<T> lista);
 
+    int getIndex(T value);
+
     Node<T> getFirst();
 
     Node<T> getLast();

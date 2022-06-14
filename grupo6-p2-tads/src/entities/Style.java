@@ -14,4 +14,15 @@ public class Style {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean exit = false;
+        if (obj instanceof Style){
+            Style tmp = (Style) obj;
+            exit = this.getName() == tmp.getName();
+            //exit = Objects.equals(this.getNld(), tmp.getNld());
+        }
+        return exit;
+    }
 }

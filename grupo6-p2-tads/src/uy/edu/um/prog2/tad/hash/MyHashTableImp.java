@@ -1,13 +1,13 @@
 package uy.edu.um.prog2.tad.hash;
 
 
-public class MyHashTableImp<K extends Comparable<K>,V> implements HashTable<K,V> {
+public class MyHashTableImp<K,V> implements HashTable<K,V> {
 
-    private final static int SIZE_INICIAL=10;// declaracion de cte
+    private final static int SIZE_INICIAL=80000;// declaracion de cte
     private final static int FACTOR_CRECIMIENTO=2;
     int cant_elementos=0;
 
-    private HashNode<K, V>[] elements;
+    private HashNode<K,V>[] elements;
 
 
     public MyHashTableImp(){
