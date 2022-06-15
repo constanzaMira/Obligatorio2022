@@ -18,7 +18,7 @@ public class DataLoadPruebas {
         MyList<Style> styles = new LinkedList<>();
         MyList<Review> reviews = new LinkedList<>();
 
-        DataLoad.DataLoad(users, reviews, breweries, beers, styles);
+        //DataLoad.DataLoad(users, reviews, breweries, beers, styles);
 
         //Demoró 14 minutos Test
 

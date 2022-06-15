@@ -133,7 +133,7 @@ public class DataLoad {
                     newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_name);
 
                     if (!reviews.contains(newReview)) {
-                        reviews.add(newReview);
+                        //reviews.add(newReview);
                     }
 
                     newBeer = new Beer(beer_beerId, beer_name, beer_abv);
