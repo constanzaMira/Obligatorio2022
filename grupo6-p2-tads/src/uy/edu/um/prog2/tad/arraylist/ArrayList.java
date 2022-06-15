@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class ArrayList<T> implements MyArrayList<T> {
 
-    private static final int INITIAL_SIZE = 20;
+    private int initialSize = 20;
 
     private final static int FACTOR_CRECIMIENTO = 2;
 
@@ -15,7 +15,12 @@ public class ArrayList<T> implements MyArrayList<T> {
     private int size;
 
     public ArrayList() {
-        this.content = new ArrayListNode[INITIAL_SIZE];
+        this.content = new ArrayListNode[initialSize];
+        this.size = 0;
+    }
+
+    public ArrayList(int initialSize) {
+        this.content = new ArrayListNode[initialSize];
         this.size = 0;
     }
 

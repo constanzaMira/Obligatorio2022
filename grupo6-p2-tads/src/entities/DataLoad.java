@@ -1,5 +1,7 @@
 package entities;
 
+import uy.edu.um.prog2.tad.arraylist.MyArrayList;
+import uy.edu.um.prog2.tad.hash.HashTable;
 import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 import uy.edu.um.prog2.tad.linkedlist.MyList;
 
@@ -11,7 +13,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 public class DataLoad {
-    public static void DataLoad(MyList<User> users, MyHashTableImp<Review, Review> reviews, MyList<Brewery> breweries, MyList<Beer> beers, MyList<Style> styles) throws IOException {
+    public static void DataLoad(HashTable<Brewery, Brewery> breweries, HashTable<Beer, Beer> beers) throws IOException {
 
         String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
         BufferedReader reader = null;
@@ -120,20 +122,14 @@ public class DataLoad {
 
                     newUser = new User(review_profileName);
 
-                    if (!users.contains(newUser)) {
-                        users.add(newUser);
-                    }
 
                     newStyle = new Style(beer_style);
 
-                    if (!styles.contains(newStyle)) {
-                        styles.add(newStyle);
-                    }
 
                     newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_name);
 
                     if (!reviews.contains(newReview)) {
-                        //reviews.add(newReview);
+                        reviews.add(newReview);
                     }
 
                     newBeer = new Beer(beer_beerId, beer_name, beer_abv);

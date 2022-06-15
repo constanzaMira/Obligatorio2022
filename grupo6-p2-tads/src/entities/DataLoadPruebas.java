@@ -1,5 +1,9 @@
 package entities;
 
+import uy.edu.um.prog2.tad.arraylist.ArrayList;
+import uy.edu.um.prog2.tad.arraylist.MyArrayList;
+import uy.edu.um.prog2.tad.hash.HashTable;
+import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 import uy.edu.um.prog2.tad.linkedlist.LinkedList;
 import uy.edu.um.prog2.tad.linkedlist.MyList;
 
@@ -12,13 +16,11 @@ import java.util.Date;
 public class DataLoadPruebas {
     public static void main(String[] args) throws IOException {
 
-        MyList<User> users = new LinkedList<>();
-        MyList<Beer> beers = new LinkedList<>();
-        MyList<Brewery> breweries = new LinkedList<>();
-        MyList<Style> styles = new LinkedList<>();
-        MyList<Review> reviews = new LinkedList<>();
+        HashTable<Beer, Beer> beers = new MyHashTableImp<>();
+        HashTable<Brewery, Brewery> breweries = new MyHashTableImp<>();
+        MyArrayList<Review> reviews = new ArrayList<>();
 
-        //DataLoad.DataLoad(users, reviews, breweries, beers, styles);
+        DataLoad.DataLoad(breweries, beers);
 
         //Demoró 14 minutos Test
 
