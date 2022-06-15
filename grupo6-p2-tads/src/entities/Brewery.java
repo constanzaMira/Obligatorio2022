@@ -1,16 +1,19 @@
 package entities;
 
+import uy.edu.um.prog2.tad.arraylist.ArrayList;
+import uy.edu.um.prog2.tad.arraylist.MyArrayList;
 import uy.edu.um.prog2.tad.linkedlist.LinkedList;
 import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 public class Brewery {// son las casas de cerveza
     private long id;
     private String name;
-    private MyList<Beer> beers = new LinkedList<>();
+    private MyArrayList<Long> beers;
 
     public Brewery(long id, String name) {
         this.id = id;
         this.name = name;
+        this.beers = new ArrayList<>(200);
     }
 
     public long getId() {
@@ -29,16 +32,16 @@ public class Brewery {// son las casas de cerveza
         this.name = name;
     }
 
-    public MyList<Beer> getBeers() {
+    public MyArrayList<Long> getBeers() {
         return beers;
     }
 
-    public void setBeers(MyList<Beer> beers) {
+    public void setBeers(MyArrayList<Long> beers) {
         this.beers = beers;
     }
 
-    public void addBeer(Beer beer) {
-        this.beers.add(beer);
+    public void addBeer(Long beerId) {
+        this.beers.add(beerId);
     }
 
     public boolean equals(Object obj) {

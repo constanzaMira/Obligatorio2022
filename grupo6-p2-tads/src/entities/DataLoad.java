@@ -1,25 +1,19 @@
 package entities;
 
-import uy.edu.um.prog2.tad.arraylist.MyArrayList;
 import uy.edu.um.prog2.tad.hash.HashTable;
-import uy.edu.um.prog2.tad.hash.MyHashTableImp;
-import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
 
 public class DataLoad {
-    public static void DataLoad(HashTable<Brewery, Brewery> breweries, HashTable<Beer, Beer> beers) throws IOException {
+    public static void DataLoad(HashTable<Brewery, Brewery> breweries, HashTable<Beer, Beer> beers, HashTable<Review, Review> reviews) throws IOException {
 
         String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
         BufferedReader reader = null;
         String line = "";
         boolean comenzar = false;
-        boolean saltear = false;
 
         Long review_id = null;
         Long brewery_id = null;
@@ -42,25 +36,22 @@ public class DataLoad {
         Brewery newBrewery;
         Review newReview;
 
-        Long progreso = 0l;
-
-        int breweryIndex = 0;
-        int beerIndex = 0;
+        double progreso = 0;
+        double percentage = 0;
 
 
         try {
             reader = new BufferedReader(new FileReader(file));
 
             while ((line = reader.readLine()) != null) {
-                saltear = false;
                 if (comenzar) {
                     String[] fila = line.split(",");
-                    for (String elements: fila) {
-                        if (elements.length() == 0) {
-                            saltear = true;
+                    for (int k = 0; k < fila.length; k++) {
+                        if (fila[k].length() == 0) {
+                            fila[k] = "0";
                         }
                     }
-                    if (fila.length == 14 && !saltear) {
+                    if (fila.length == 14) {
 
                         review_id = Long.valueOf(fila[0]);
                         //System.out.println(review_id);
@@ -78,7 +69,7 @@ public class DataLoad {
                         beer_abv = Double.valueOf(fila[12]);
                         beer_beerId = Long.valueOf(fila[13]);
                     }
-                    else if (fila.length == 15 && !saltear){
+                    else if (fila.length == 15){
                         int j = 0;
 
                         for (int index = 0; index < fila.length; index++) {
@@ -93,7 +84,8 @@ public class DataLoad {
                                 nuevaFila[index] = fila[index];
                             }
                             else if (index == j) {
-                                nuevaFila[index] = fila[index].concat(",".concat(fila[index+1]));
+                                String s = String.valueOf('"');
+                                nuevaFila[index] = fila[index].concat(",".concat(fila[index+1])).replaceAll(s,"");
                             }
                             else {
                                 nuevaFila[index] = fila[index+1];
@@ -126,40 +118,40 @@ public class DataLoad {
                     newStyle = new Style(beer_style);
 
 
-                    newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_name);
+                    newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_id);
 
-                    if (!reviews.contains(newReview)) {
-                        reviews.add(newReview);
-                    }
+                    reviews.put(newReview, newReview);
 
                     newBeer = new Beer(beer_beerId, beer_name, beer_abv);
-                    newBeer.addReview(newReview);
+                    newBeer.addReview(review_id);
 
                     if (!beers.contains(newBeer)) {
-                        beers.add(newBeer);
+                        beers.put(newBeer, newBeer);
                     }
                     else {
-                        int i = beers.getIndex(newBeer);
-                        newBeer = beers.get(i);
-                        newBeer.addReview(newReview);
-                        beers.set(i, newBeer);
+                        newBeer = beers.get(newBeer);
+                        newBeer.addReview(review_id);
+                        beers.set(newBeer, newBeer);
                     }
 
                     newBrewery = new Brewery(brewery_id, brewery_name);
-                    newBrewery.addBeer(newBeer);
 
                     if (!breweries.contains(newBrewery)) {
-                        breweries.add(newBrewery);
+                        newBrewery.addBeer(beer_beerId);
+                        breweries.put(newBrewery, newBrewery);
                     }
                     else {
-                        int i = breweries.getIndex(newBrewery);
-                        newBrewery = breweries.get(i);
-                        newBrewery.addBeer(newBeer);
-                        breweries.set(i, newBrewery);
+                        newBrewery = breweries.get(newBrewery);
+                        if (!newBrewery.getBeers().contains(beer_beerId)) {
+                            newBrewery.addBeer(beer_beerId);
+                            breweries.set(newBrewery, newBrewery);
+                        }
                     }
                 }
                 comenzar = true;
-                System.out.println(progreso);
+
+                percentage = (progreso/1586614)*100;
+                System.out.println(String.format("%.2f", (percentage)).concat("%"));
                 progreso++;
             }
         }

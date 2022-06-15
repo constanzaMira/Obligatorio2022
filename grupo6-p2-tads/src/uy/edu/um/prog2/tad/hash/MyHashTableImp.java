@@ -3,7 +3,7 @@ package uy.edu.um.prog2.tad.hash;
 
 public class MyHashTableImp<K,V> implements HashTable<K,V> {
 
-    private final static int SIZE_INICIAL=80000;// declaracion de cte
+    private final static int SIZE_INICIAL=1000;// declaracion de cte
     private final static int FACTOR_CRECIMIENTO=2;
     int cant_elementos=0;
 
@@ -11,7 +11,11 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
 
 
     public MyHashTableImp(){
-        elements= new HashNode[SIZE_INICIAL];
+        elements = new HashNode[SIZE_INICIAL];
+    }
+
+    public MyHashTableImp(int initialSize) {
+        elements = new HashNode[initialSize];
     }
 
     private int colison(int prueba){
@@ -96,17 +100,17 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
 
     @Override
     public boolean contains(K key) {
+        boolean exit = false;
         try {
             if(get(key)!=null){
-                return true;
+                exit = true;
             }else{
-                return false;
+                exit = false;
             }
         } catch (IllegalAccessException e) {
 
         }
-
-        return false;
+        return exit;
     }
 
     @Override
@@ -135,11 +139,21 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
             }
 
         }
+        cant_elementos--;
 
     }
 
     @Override
     public int size() {
         return cant_elementos;
+    }
+
+    @Override
+    public void set(K key, V value) throws NoExiste, IllegalAccessException {
+        if (this.get(key).equals(value)) {
+            this.remove(key);
+            this.put(key, value);
+        }
+
     }
 }

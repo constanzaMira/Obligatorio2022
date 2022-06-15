@@ -1,31 +1,35 @@
 package entities;
 
 
+import uy.edu.um.prog2.tad.arraylist.ArrayList;
+import uy.edu.um.prog2.tad.arraylist.MyArrayList;
 import uy.edu.um.prog2.tad.linkedlist.LinkedList;
 import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 public class Beer {
+
     private long id;
+
     private String name;
+
     private Style style;
+
     private double abv;
 
-    // una cerveza tiene una lista? de reviews
-    //una cerveza tiene una lista? de estilos
-
-    private MyList<Review> reviews = new LinkedList<>();
+    private MyArrayList<Long> reviewsId;
 
     public Beer(long id, String name, double abv) {
         this.id = id;
         this.name = name;
         this.abv = abv;
+        this.reviewsId = new ArrayList<>(1000);
     }
 
-    public MyList<Review> getReviews() {
-        return reviews;
+    public MyArrayList<Long> getReviewsId() {
+        return reviewsId;
     }
-    public void setReviews(LinkedList<Review> reviews) {
-        this.reviews = reviews;
+    public void setReviews(MyArrayList<Long> reviewsId) {
+        this.reviewsId = reviewsId;
     }
 
     public Style getStyle() {
@@ -60,8 +64,8 @@ public class Beer {
         this.abv = abv;
     }
 
-    public void addReview(Review review) {
-        this.reviews.add(review);
+    public void addReview(Long reviewId) {
+        this.reviewsId.add(reviewId);
     }
 
     public boolean equals(Object obj) {

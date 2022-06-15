@@ -22,9 +22,9 @@ public class Review implements Comparable<Review> {
 
     private User user;
 
-    private String brewery;
+    private Long breweryId;
 
-    public Review(long id, Date date, double overallScore, double appearanceScore, double aromaScore, double palateScore, double flavourScore, User user, String brewery) {
+    public Review(long id, Date date, double overallScore, double appearanceScore, double aromaScore, double palateScore, double flavourScore, User user, Long breweryId) {
         this.id = id;
         this.date = date;
         this.overallScore = overallScore;
@@ -33,7 +33,7 @@ public class Review implements Comparable<Review> {
         this.palateScore = palateScore;
         this.flavourScore = flavourScore;
         this.user = user;
-        this.brewery = brewery;
+        this.breweryId = breweryId;
     }
 
     public long getId() {
@@ -100,12 +100,12 @@ public class Review implements Comparable<Review> {
         this.user = user;
     }
 
-    public String getBrewery() {
-        return brewery;
+    public Long getBrewery() {
+        return breweryId;
     }
 
-    public void setBrewery(String brewery) {
-        this.brewery = brewery;
+    public void setBrewery(Long brewery) {
+        this.breweryId = brewery;
     }
 
     @Override

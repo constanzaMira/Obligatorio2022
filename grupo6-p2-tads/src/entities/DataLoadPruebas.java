@@ -16,11 +16,11 @@ import java.util.Date;
 public class DataLoadPruebas {
     public static void main(String[] args) throws IOException {
 
-        HashTable<Beer, Beer> beers = new MyHashTableImp<>();
-        HashTable<Brewery, Brewery> breweries = new MyHashTableImp<>();
-        MyArrayList<Review> reviews = new ArrayList<>();
+        HashTable<Beer, Beer> beers = new MyHashTableImp<>(100000);
+        HashTable<Brewery, Brewery> breweries = new MyHashTableImp<>(30000);
+        HashTable<Review, Review> reviews = new MyHashTableImp<>(200000);
 
-        DataLoad.DataLoad(breweries, beers);
+        DataLoad.DataLoad(breweries, beers, reviews);
 
         //Demoró 14 minutos Test
 
