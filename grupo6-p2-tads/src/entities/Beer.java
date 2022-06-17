@@ -16,7 +16,11 @@ public class Beer {
 
     private double abv;
 
-    private MyArrayList<Long> reviewsId;
+    private MyArrayList<Review> reviewsId;
+
+    public Beer(long id) {
+        this.id = id;
+    }
 
     public Beer(long id, String name, double abv) {
         this.id = id;
@@ -25,10 +29,12 @@ public class Beer {
         this.reviewsId = new ArrayList<>(1000);
     }
 
-    public MyArrayList<Long> getReviewsId() {
+
+    public MyArrayList<Review> getReviewsId() {
         return reviewsId;
     }
-    public void setReviews(MyArrayList<Long> reviewsId) {
+
+    public void setReviewsId(MyArrayList<Review> reviewsId) {
         this.reviewsId = reviewsId;
     }
 
@@ -64,7 +70,7 @@ public class Beer {
         this.abv = abv;
     }
 
-    public void addReview(Long reviewId) {
+    public void addReview(Review reviewId) {
         this.reviewsId.add(reviewId);
     }
 

@@ -10,9 +10,9 @@ import java.util.Date;
 
 public class DataLoad {
 
-    private static MyHashTableImp<Beer, Beer> beers ;
-    private static MyHashTableImp<Brewery, Brewery> breweries;
-    private static MyHashTableImp<Review, Review> reviews;
+    private static MyHashTableImp<Long, Beer> beers ;
+    private static MyHashTableImp<Long, Brewery> breweries;
+    private static MyHashTableImp<Long, Review> reviews;
 
     public DataLoad() {
         this.reviews=new MyHashTableImp<>(2000000);
@@ -23,7 +23,7 @@ public class DataLoad {
 
     public void dataLoad() throws IOException {
 
-        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
+        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_test.csv";
         BufferedReader reader = null;
         String line = "";
         boolean comenzar = false;
@@ -133,38 +133,38 @@ public class DataLoad {
 
                     newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_id);
 
-                    reviews.put(newReview, newReview);
+                    reviews.put(review_id, newReview);
 
                     newBeer = new Beer(beer_beerId, beer_name, beer_abv);
-                    newBeer.addReview(review_id);
+                    newBeer.addReview(newReview);//antes decia review_id lo cambie
 
-                    if (!beers.contains(newBeer)) {
-                        beers.put(newBeer, newBeer);
+                    if (!beers.contains(beer_beerId)) {
+                        beers.put(beer_beerId, newBeer);
                     }
                     else {
-                        newBeer = beers.get(newBeer);
-                        newBeer.addReview(review_id);
-                        beers.set(newBeer, newBeer);
+                        newBeer = beers.get(beer_beerId);
+                        newBeer.addReview(newReview);// antes decia adentro del parentesis review_id
+                        beers.set(beer_beerId, newBeer);
                     }
 
                     newBrewery = new Brewery(brewery_id, brewery_name);
 
-                    if (!breweries.contains(newBrewery)) {
+                    if (!breweries.contains(brewery_id)) {
                         newBrewery.addBeer(beer_beerId);
-                        breweries.put(newBrewery, newBrewery);
+                        breweries.put(brewery_id, newBrewery);
                     }
                     else {
-                        newBrewery = breweries.get(newBrewery);
+                        newBrewery = breweries.get(brewery_id);
                         if (!newBrewery.getBeers().contains(beer_beerId)) {
                             newBrewery.addBeer(beer_beerId);
-                            breweries.set(newBrewery, newBrewery);
+                            breweries.set(brewery_id, newBrewery);
                         }
                     }
                 }
                 comenzar = true;
 
                 percentage = (progreso/1586614)*100;
-                System.out.println(String.format("%.2f", (percentage)).concat("%"));
+                //System.out.println(String.format("%.2f", (percentage)).concat("%"));
                 progreso++;
             }
         }
@@ -181,27 +181,27 @@ public class DataLoad {
     }
 
 
-    public static MyHashTableImp<Beer, Beer> getBeers() {
+    public static MyHashTableImp<Long, Beer> getBeers() {
         return beers;
     }
 
-    public static void setBeers(MyHashTableImp<Beer, Beer> beers) {
+    public static void setBeers(MyHashTableImp<Long, Beer> beers) {
         DataLoad.beers = beers;
     }
 
-    public static MyHashTableImp<Brewery, Brewery> getBreweries() {
+    public static MyHashTableImp<Long, Brewery> getBreweries() {
         return breweries;
     }
 
-    public static void setBreweries(MyHashTableImp<Brewery, Brewery> breweries) {
+    public static void setBreweries(MyHashTableImp<Long, Brewery> breweries) {
         DataLoad.breweries = breweries;
     }
 
-    public static MyHashTableImp<Review, Review> getReviews() {
+    public static MyHashTableImp<Long, Review> getReviews() {
         return reviews;
     }
 
-    public static void setReviews(MyHashTableImp<Review, Review> reviews) {
+    public static void setReviews(MyHashTableImp<Long, Review> reviews) {
         DataLoad.reviews = reviews;
     }
 }

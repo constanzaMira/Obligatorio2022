@@ -9,6 +9,11 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
 
     private HashNode<K,V>[] elements;
 
+    public MyHashTableImp(int cant_elementos, HashNode<K, V>[] elements) {
+        this.cant_elementos = cant_elementos;
+        this.elements = elements;
+    }
+
     public int getCant_elementos() {
         return cant_elementos;
     }
