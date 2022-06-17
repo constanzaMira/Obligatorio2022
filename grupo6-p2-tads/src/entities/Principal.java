@@ -1,6 +1,6 @@
 package entities;
 
-import exceptions.Fachainvalida;
+import exceptions.Fechainvalida;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,47 +8,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Principal {
-    public void menu()  {
 
-        while (true){
-            Scanner leer = new Scanner(System.in);
-            System.out.println("1. 10 casas de cervezas con mas reseñas");
-            System.out.println("2. Top 15 catadores con mas reseñas");
-            System.out.println("3. Cantidad de reviews en determinado rango");
-            System.out.println("4. Top 7 estilos de cerveza con mejor aroma");
-            System.out.println("5. Top 5 cervezas con mas reviews");
-            System.out.println("Ingrese la opción deseada");
-            int numero = leer.nextInt();
-            if (numero == 1) {
-                try {
-                    diezCasasDeCervezaConMasResenias();
-                } catch (Fachainvalida e) {
-
-                }
-            }
-            if (numero == 2) {
-                top15CatadoresConMasResenias();
-
-            }
-            if (numero == 3) {
-                cantidadDeReviewsEnRango();
-
-            } else if (numero == 4) {
-                top7EstilosDeCervezaConMejorAroma();
-
-            } else if (numero == 5) {
-                top5CervezasConMasReviews();
-            } else {
-                System.out.println("error");
-                break;
-            }
-        }
-
-
-
-    }
-
-    public void diezCasasDeCervezaConMasResenias() throws Fachainvalida {
+    public void diezCasasDeCervezaConMasResenias() throws Fechainvalida {
         Scanner scanner= new Scanner(System.in);
         System.out.println("Ingrese una año");
 
@@ -59,9 +20,8 @@ public class Principal {
         try {
             fecha1 = dateFormat.parse(fecha);
         } catch (ParseException e) {
-            throw new Fachainvalida();
+            throw new Fechainvalida();
         }
-        
 
     }
 
@@ -72,6 +32,39 @@ public class Principal {
 
 
     public void cantidadDeReviewsEnRango(){
+        int contador= 0;
+        Scanner scanner= new Scanner(System.in);
+        System.out.println("Ingrese fecha de comienzo");
+
+        Scanner scanner1= new Scanner(System.in);
+        System.out.println("Ingrese fecha de fin");
+
+        String fecha= scanner.next();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy");
+        Date fechai= null;
+
+        String fecha0= scanner1.next();
+        SimpleDateFormat dateFormat1= new SimpleDateFormat("yyyy");
+        Date fechaf= null;
+
+        try {
+            fechai=dateFormat.parse(fecha);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        try {
+            fechaf=dateFormat.parse(fecha);
+        } catch (ParseException e) {
+
+        }
+
+
+        for (int i=0; i<DataLoad.getReviews().size();i++){
+
+        }
+
 
     }
 

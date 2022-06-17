@@ -1,4 +1,4 @@
 package exceptions;
 
-public class Fachainvalida extends Exception{
+public class Fechainvalida extends Exception{
 }

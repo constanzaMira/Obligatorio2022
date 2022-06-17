@@ -1,6 +1,7 @@
 package entities;
 
 import uy.edu.um.prog2.tad.hash.HashTable;
+import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +9,19 @@ import java.io.IOException;
 import java.util.Date;
 
 public class DataLoad {
-    public static void DataLoad(HashTable<Brewery, Brewery> breweries, HashTable<Beer, Beer> beers, HashTable<Review, Review> reviews) throws IOException {
+
+    private static MyHashTableImp<Beer, Beer> beers ;
+    private static MyHashTableImp<Brewery, Brewery> breweries;
+    private static MyHashTableImp<Review, Review> reviews;
+
+    public DataLoad() {
+        this.reviews=new MyHashTableImp<>(2000000);
+        this.breweries= new MyHashTableImp<>(30000);
+        this.beers= new MyHashTableImp<>(1000000);
+
+    }
+
+    public void dataLoad() throws IOException {
 
         String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
         BufferedReader reader = null;
@@ -165,5 +178,30 @@ public class DataLoad {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    public static MyHashTableImp<Beer, Beer> getBeers() {
+        return beers;
+    }
+
+    public static void setBeers(MyHashTableImp<Beer, Beer> beers) {
+        DataLoad.beers = beers;
+    }
+
+    public static MyHashTableImp<Brewery, Brewery> getBreweries() {
+        return breweries;
+    }
+
+    public static void setBreweries(MyHashTableImp<Brewery, Brewery> breweries) {
+        DataLoad.breweries = breweries;
+    }
+
+    public static MyHashTableImp<Review, Review> getReviews() {
+        return reviews;
+    }
+
+    public static void setReviews(MyHashTableImp<Review, Review> reviews) {
+        DataLoad.reviews = reviews;
     }
 }

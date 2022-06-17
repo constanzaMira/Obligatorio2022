@@ -3,12 +3,27 @@ package uy.edu.um.prog2.tad.hash;
 
 public class MyHashTableImp<K,V> implements HashTable<K,V> {
 
-    private final static int SIZE_INICIAL=1000;// declaracion de cte
+    private final static int SIZE_INICIAL=10000;// declaracion de cte
     private final static int FACTOR_CRECIMIENTO=2;
     int cant_elementos=0;
 
     private HashNode<K,V>[] elements;
 
+    public int getCant_elementos() {
+        return cant_elementos;
+    }
+
+    public void setCant_elementos(int cant_elementos) {
+        this.cant_elementos = cant_elementos;
+    }
+
+    public HashNode<K, V>[] getElements() {
+        return elements;
+    }
+
+    public void setElements(HashNode<K, V>[] elements) {
+        this.elements = elements;
+    }
 
     public MyHashTableImp(){
         elements = new HashNode[SIZE_INICIAL];
