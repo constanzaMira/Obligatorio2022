@@ -5,7 +5,7 @@ import uy.edu.um.prog2.tad.hash.HashNode;
 import java.util.Date;
 
 public class Review implements Comparable<Review> {
-    //un user tiene una lista? de reviews
+
     private long id;
 
     private Date date;

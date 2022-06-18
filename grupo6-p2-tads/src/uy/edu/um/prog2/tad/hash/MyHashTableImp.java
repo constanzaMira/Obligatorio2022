@@ -1,6 +1,12 @@
 package uy.edu.um.prog2.tad.hash;
 
 
+import uy.edu.um.prog2.tad.arraylist.MyArrayList;
+import uy.edu.um.prog2.tad.linkedlist.MyList;
+
+import java.security.Key;
+import java.util.Enumeration;
+
 public class MyHashTableImp<K,V> implements HashTable<K,V> {
 
     private final static int SIZE_INICIAL=10000;// declaracion de cte
@@ -8,6 +14,16 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
     int cant_elementos=0;
 
     private HashNode<K,V>[] elements;
+
+    private MyList<V>[] values;
+
+    public MyList<V>[] getValues() {
+        return values;
+    }
+
+    public void setValues(MyList<V>[] values) {
+        this.values = values;
+    }
 
     public MyHashTableImp(int cant_elementos, HashNode<K, V>[] elements) {
         this.cant_elementos = cant_elementos;
@@ -176,4 +192,14 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
         }
 
     }
+    /*public V insertValues(K key ){
+        try {
+            values.add(get(key));
+
+        } catch (IllegalAccessException e) {
+
+        }
+
+    }*/
+
 }

@@ -9,7 +9,7 @@ public class Main {
     public void Menu(){
 
         Principal principal= new Principal();
-        DataLoad dataload = new DataLoad();
+
 
         while (true){
             Scanner leer0 = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class Main {
             int numero0 = leer0.nextInt();
             if(numero0==1){
                 try {
-                    dataload.dataLoad();
+                    DataLoad.dataLoad();
                 } catch (IOException e) {
 
                 }

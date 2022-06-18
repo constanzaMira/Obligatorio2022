@@ -12,16 +12,16 @@ public class DataLoad {
 
     private static MyHashTableImp<Long, Beer> beers ;
     private static MyHashTableImp<Long, Brewery> breweries;
-    private static MyHashTableImp<Long, Review> reviews;
+    //private static MyHashTableImp<Long, Review> reviews;
 
     public DataLoad() {
-        this.reviews=new MyHashTableImp<>(2000000);
+        //this.reviews=new MyHashTableImp<>(2000000);
         this.breweries= new MyHashTableImp<>(30000);
         this.beers= new MyHashTableImp<>(1000000);
 
     }
 
-    public void dataLoad() throws IOException {
+    public static void dataLoad() throws IOException {
 
         String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_test.csv";
         BufferedReader reader = null;
@@ -133,9 +133,9 @@ public class DataLoad {
 
                     newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_id);
 
-                    reviews.put(review_id, newReview);
+                   // reviews.put(review_id, newReview);
 
-                    newBeer = new Beer(beer_beerId, beer_name, beer_abv);
+                    newBeer = new Beer(beer_beerId, beer_name, beer_abv,newStyle);// aca hay que [pner tambien como atributo new review?
                     newBeer.addReview(newReview);//antes decia review_id lo cambie
 
                     if (!beers.contains(beer_beerId)) {
@@ -197,11 +197,5 @@ public class DataLoad {
         DataLoad.breweries = breweries;
     }
 
-    public static MyHashTableImp<Long, Review> getReviews() {
-        return reviews;
-    }
 
-    public static void setReviews(MyHashTableImp<Long, Review> reviews) {
-        DataLoad.reviews = reviews;
-    }
 }

@@ -3,8 +3,6 @@ package entities;
 
 import uy.edu.um.prog2.tad.arraylist.ArrayList;
 import uy.edu.um.prog2.tad.arraylist.MyArrayList;
-import uy.edu.um.prog2.tad.linkedlist.LinkedList;
-import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 public class Beer {
 
@@ -18,17 +16,29 @@ public class Beer {
 
     private MyArrayList<Review> reviewsId;
 
-    public Beer(long id) {
+    public Beer(long id, String beer_name, double beer_abv, Review newReview) {
         this.id = id;
     }
 
-    public Beer(long id, String name, double abv) {
+  /*  public Beer(long id, String name, double abv) {
         this.id = id;
         this.name = name;
         this.abv = abv;
         this.reviewsId = new ArrayList<>(1000);
+    }*/
+
+    public Beer(long id, String name, Style style, double abv, MyArrayList<Review> reviewsId) {
+        this.id = id;
+        this.name = name;
+        this.style = style;
+        this.abv = abv;
+        this.reviewsId = new ArrayList<>(1000);
     }
 
+
+
+    public Beer(Long beer_beerId, String beer_name, double beer_abv, Style newStyle) {
+    }
 
     public MyArrayList<Review> getReviewsId() {
         return reviewsId;

@@ -61,7 +61,8 @@ public class Principal {
         }
 
 
-        for (int i=0; i<DataLoad.getReviews().size();i++){
+        for (int i=0; i<DataLoad.getBeers().size();i++){
+            if (DataLoad.getBeers().get(i).getReviewsId().get(i).getDate())
 
         }
 
