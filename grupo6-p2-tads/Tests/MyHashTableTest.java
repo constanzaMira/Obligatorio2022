@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import uy.edu.um.prog2.tad.arraylist.IndexOutOfBounds;
 import uy.edu.um.prog2.tad.hash.HashTable;
 import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 import uy.edu.um.prog2.tad.hash.NoExiste;
@@ -117,10 +118,14 @@ public class MyHashTableTest {
         try {
             hash.remove(9);
         } catch (NoExiste e) {
+        } catch (IndexOutOfBounds e) {
+            e.printStackTrace();
         }
         try {
             hash.remove(30);
         } catch (NoExiste e) {
+        } catch (IndexOutOfBounds e) {
+            e.printStackTrace();
         }
         Assertions.assertEquals(false,hash.contains(30));
         Assertions.assertEquals(false,hash.contains(9));

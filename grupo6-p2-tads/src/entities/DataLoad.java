@@ -1,7 +1,8 @@
 package entities;
 
+import uy.edu.um.prog2.tad.arraylist.MyArrayList;
 import uy.edu.um.prog2.tad.hash.HashTable;
-import uy.edu.um.prog2.tad.hash.MyHashTableImp;
+import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,21 +10,9 @@ import java.io.IOException;
 import java.util.Date;
 
 public class DataLoad {
+    public static void DataLoad(HashTable<Long, Brewery> breweries, HashTable<Long, Beer> beers) throws IOException {
 
-    private static MyHashTableImp<Long, Beer> beers ;
-    private static MyHashTableImp<Long, Brewery> breweries;
-    //private static MyHashTableImp<Long, Review> reviews;
-
-    public DataLoad() {
-        //this.reviews=new MyHashTableImp<>(2000000);
-        this.breweries= new MyHashTableImp<>(30000);
-        this.beers= new MyHashTableImp<>(1000000);
-
-    }
-
-    public static void dataLoad() throws IOException {
-
-        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_test.csv";
+        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
         BufferedReader reader = null;
         String line = "";
         boolean comenzar = false;
@@ -51,6 +40,9 @@ public class DataLoad {
 
         double progreso = 0;
         double percentage = 0;
+
+        long tiempoInicio = System.currentTimeMillis();
+        long tiempoFinal;
 
 
         try {
@@ -133,40 +125,40 @@ public class DataLoad {
 
                     newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_id);
 
-                   // reviews.put(review_id, newReview);
-
-                    newBeer = new Beer(beer_beerId, beer_name, beer_abv,newStyle);// aca hay que [pner tambien como atributo new review?
-                    newBeer.addReview(newReview);//antes decia review_id lo cambie
-
-                    if (!beers.contains(beer_beerId)) {
-                        beers.put(beer_beerId, newBeer);
-                    }
-                    else {
-                        newBeer = beers.get(beer_beerId);
-                        newBeer.addReview(newReview);// antes decia adentro del parentesis review_id
-                        beers.set(beer_beerId, newBeer);
-                    }
+                    newBeer = new Beer(beer_beerId, beer_name, beer_abv, newStyle);
+                    newBeer.addReview(newReview);
 
                     newBrewery = new Brewery(brewery_id, brewery_name);
 
                     if (!breweries.contains(brewery_id)) {
                         newBrewery.addBeer(beer_beerId);
                         breweries.put(brewery_id, newBrewery);
+                        beers.put(beer_beerId, newBeer);
                     }
                     else {
                         newBrewery = breweries.get(brewery_id);
-                        if (!newBrewery.getBeers().contains(beer_beerId)) {
+                        if (!beers.contains(beer_beerId)) {
                             newBrewery.addBeer(beer_beerId);
                             breweries.set(brewery_id, newBrewery);
+                            beers.put(beer_beerId, newBeer);
+                        }
+                        else {
+                            newBeer = beers.get(beer_beerId);
+                            newBeer.addReview(newReview);
+                            beers.set(beer_beerId, newBeer);
+
                         }
                     }
+
                 }
                 comenzar = true;
 
                 percentage = (progreso/1586614)*100;
-                //System.out.println(String.format("%.2f", (percentage)).concat("%"));
+                System.out.println(String.format("%.2f", (percentage)).concat("%"));
                 progreso++;
             }
+            tiempoFinal = System.currentTimeMillis();
+            System.out.println("Tiempo: ".concat(Long.toString((tiempoFinal-tiempoInicio)/1000).concat("s")));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -179,23 +171,4 @@ public class DataLoad {
             }
         }
     }
-
-
-    public static MyHashTableImp<Long, Beer> getBeers() {
-        return beers;
-    }
-
-    public static void setBeers(MyHashTableImp<Long, Beer> beers) {
-        DataLoad.beers = beers;
-    }
-
-    public static MyHashTableImp<Long, Brewery> getBreweries() {
-        return breweries;
-    }
-
-    public static void setBreweries(MyHashTableImp<Long, Brewery> breweries) {
-        DataLoad.breweries = breweries;
-    }
-
-
 }

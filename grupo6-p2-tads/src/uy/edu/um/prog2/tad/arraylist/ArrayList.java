@@ -85,6 +85,14 @@ public class ArrayList<T> implements MyArrayList<T> {
     }
 
     @Override
+    public void removeObj(T value) throws IndexOutOfBounds {
+        int index = this.getIndex(value);
+        if (index > -1 && index < this.size) {
+            this.remove(this.getIndex(value));
+        }
+    }
+
+    @Override
     public boolean contains(T value) {
         boolean found = false;
 

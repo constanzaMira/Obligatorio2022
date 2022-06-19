@@ -1,13 +1,33 @@
 package entities;
 
 import exceptions.Fechainvalida;
+import uy.edu.um.prog2.tad.hash.HashTable;
+import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Principal {
+public class Consultas {
+
+    private HashTable<Long, Brewery> breweries = new MyHashTableImp<>(300000);
+
+    private HashTable<Long, Beer> beers = new MyHashTableImp<>(200000);
+
+
+    public Consultas() throws IOException {
+        DataLoad.DataLoad(breweries, beers);
+    }
+
+    public HashTable<Long, Beer> getBeers() {
+        return beers;
+    }
+
+    public HashTable<Long, Brewery> getBreweries() {
+        return breweries;
+    }
 
     public void diezCasasDeCervezaConMasResenias() throws Fechainvalida {
         Scanner scanner= new Scanner(System.in);
@@ -61,10 +81,10 @@ public class Principal {
         }
 
 
-        for (int i=0; i<DataLoad.getBeers().size();i++){
+        /*for (int i=0; i<DataLoad.getBeers().size();i++){
             if (DataLoad.getBeers().get(i).getReviewsId().get(i).getDate())
 
-        }
+        }*/
 
 
     }

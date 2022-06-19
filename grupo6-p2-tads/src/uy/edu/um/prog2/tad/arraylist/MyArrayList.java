@@ -12,6 +12,8 @@ public interface MyArrayList<T> {
 
     void remove(int position) throws IndexOutOfBounds;
 
+    void removeObj(T value) throws IndexOutOfBounds;
+
     boolean contains(T value);
 
     int getIndex(T value);

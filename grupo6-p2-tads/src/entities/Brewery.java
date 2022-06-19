@@ -6,14 +6,17 @@ import uy.edu.um.prog2.tad.linkedlist.LinkedList;
 import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 public class Brewery {// son las casas de cerveza
+
     private long id;
+
     private String name;
-    private MyArrayList<Long> beers;
+
+    private MyArrayList<Long> beersId;
 
     public Brewery(long id, String name) {
         this.id = id;
         this.name = name;
-        this.beers = new ArrayList<>(200);
+        this.beersId = new ArrayList<>(200);
     }
 
     public long getId() {
@@ -32,16 +35,16 @@ public class Brewery {// son las casas de cerveza
         this.name = name;
     }
 
-    public MyArrayList<Long> getBeers() {
-        return beers;
+    public MyArrayList<Long> getBeersId() {
+        return beersId;
     }
 
     public void setBeers(MyArrayList<Long> beers) {
-        this.beers = beers;
+        this.beersId = beers;
     }
 
     public void addBeer(Long beerId) {
-        this.beers.add(beerId);
+        this.beersId.add(beerId);
     }
 
     public boolean equals(Object obj) {

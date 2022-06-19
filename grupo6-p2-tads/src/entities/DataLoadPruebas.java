@@ -12,12 +12,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Scanner;
 
 public class DataLoadPruebas {
     public static void main(String[] args) throws IOException {
 
+        HashTable<Long, Beer> beers = new MyHashTableImp<>(200000);
+        HashTable<Long, Brewery> breweries = new MyHashTableImp<>(300000);
 
-        //Demoró 14 minutos Test
+        //Esto es para probar el monitoreo de memoria
+
+        Scanner leer0 = new Scanner(System.in);
+        int numero0 = leer0.nextInt();
+
+        Consultas consultas = new Consultas();
+
+        numero0 = leer0.nextInt();
+
 
         System.out.println();
 

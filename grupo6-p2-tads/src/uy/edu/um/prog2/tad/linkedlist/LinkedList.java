@@ -34,7 +34,6 @@ public class LinkedList<T> implements MyList<T>, MyStack<T>, MyQueue<T>, MyDoubl
     @Override
     public void add(T value) {
         this.addLast(value);
-
     }
 
     @Override
@@ -126,7 +125,7 @@ public class LinkedList<T> implements MyList<T>, MyStack<T>, MyQueue<T>, MyDoubl
         Node<T> valorPrevio = null;
         Node<T> nuevoNodo = new Node<>(value);
 
-        if (value != null && position < this.size) {
+        if (value != null && position < this.size && position >= 0) {
             if (this.size == 1) {
 
                 this.first = nuevoNodo;
@@ -146,6 +145,10 @@ public class LinkedList<T> implements MyList<T>, MyStack<T>, MyQueue<T>, MyDoubl
                 nuevoNodo.setSiguiente(valorBuscado.getSiguiente());
                 valorBuscado.setSiguiente(null);
                 valorPrevio.setSiguiente(nuevoNodo);
+
+                if (position == this.size - 1) {
+                    this.last = nuevoNodo;
+                }
 
             }
         }

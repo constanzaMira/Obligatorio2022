@@ -14,38 +14,23 @@ public class Beer {
 
     private double abv;
 
-    private MyArrayList<Review> reviewsId;
+    private MyArrayList<Review> reviews;
 
-    public Beer(long id, String beer_name, double beer_abv, Review newReview) {
-        this.id = id;
-    }
 
-  /*  public Beer(long id, String name, double abv) {
+    public Beer(long id, String name, double abv, Style style) {
         this.id = id;
         this.name = name;
         this.abv = abv;
-        this.reviewsId = new ArrayList<>(1000);
-    }*/
-
-    public Beer(long id, String name, Style style, double abv, MyArrayList<Review> reviewsId) {
-        this.id = id;
-        this.name = name;
+        this.reviews = new ArrayList<>(1000);
         this.style = style;
-        this.abv = abv;
-        this.reviewsId = new ArrayList<>(1000);
-    }
-
-
-
-    public Beer(Long beer_beerId, String beer_name, double beer_abv, Style newStyle) {
     }
 
     public MyArrayList<Review> getReviewsId() {
-        return reviewsId;
+        return reviews;
     }
 
     public void setReviewsId(MyArrayList<Review> reviewsId) {
-        this.reviewsId = reviewsId;
+        this.reviews = reviewsId;
     }
 
     public Style getStyle() {
@@ -80,8 +65,8 @@ public class Beer {
         this.abv = abv;
     }
 
-    public void addReview(Review reviewId) {
-        this.reviewsId.add(reviewId);
+    public void addReview(Review review) {
+        this.reviews.add(review);
     }
 
     public boolean equals(Object obj) {

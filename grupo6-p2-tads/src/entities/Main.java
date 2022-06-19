@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public void Menu(){
+    public void Menu() throws IOException {
 
-        Principal principal= new Principal();
-
+        Consultas consultas = null;
 
         while (true){
             Scanner leer0 = new Scanner(System.in);
@@ -19,11 +18,10 @@ public class Main {
             int numero0 = leer0.nextInt();
             if(numero0==1){
                 try {
-                    DataLoad.dataLoad();
+                    consultas = new Consultas();
                 } catch (IOException e) {
 
                 }
-                //aca va lo correspondiente a la craga de datos
             }
             if(numero0==2){
                 Scanner leer = new Scanner(System.in);
@@ -36,25 +34,25 @@ public class Main {
                 int numero = leer.nextInt();
                 if (numero == 1) {
                     try {
-                        principal.diezCasasDeCervezaConMasResenias();
+                        consultas.diezCasasDeCervezaConMasResenias();
                     } catch (Fechainvalida e) {
 
                     }
 
                 }
                 if (numero == 2) {
-                    principal.top15CatadoresConMasResenias();
+                    consultas.top15CatadoresConMasResenias();
 
                 }
                 if (numero == 3) {
-                    principal.cantidadDeReviewsEnRango();
+                    consultas.cantidadDeReviewsEnRango();
 
 
                 } else if (numero == 4) {
-                    principal.top7EstilosDeCervezaConMejorAroma();
+                    consultas.top7EstilosDeCervezaConMejorAroma();
 
                 } else if (numero == 5) {
-                    principal.top5CervezasConMasReviews();
+                    consultas.top5CervezasConMasReviews();
                 } else {
                     System.out.println("error");
                 }
@@ -74,7 +72,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Main main= new Main();
         main.Menu();
 
