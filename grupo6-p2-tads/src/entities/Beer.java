@@ -14,6 +14,16 @@ public class Beer {
 
     private double abv;
 
+    private long puntaje=0;
+
+    public long getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(long puntaje) {
+        this.puntaje = puntaje;
+    }
+
     private MyArrayList<Review> reviews;
 
 

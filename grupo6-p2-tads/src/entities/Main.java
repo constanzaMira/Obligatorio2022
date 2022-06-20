@@ -34,9 +34,13 @@ public class Main {
                 int numero = leer.nextInt();
                 if (numero == 1) {
                     try {
-                        consultas.diezCasasDeCervezaConMasResenias();
+                        try {
+                            consultas.diezCasasDeCervezaConMasResenias();
+                        } catch (IllegalAccessException e) {
+                            break;
+                        }
                     } catch (Fechainvalida e) {
-
+                            break;
                     }
 
                 }
@@ -45,14 +49,22 @@ public class Main {
 
                 }
                 if (numero == 3) {
-                    consultas.cantidadDeReviewsEnRango();
+                    try {
+                        consultas.cantidadDeReviewsEnRango();
+                    } catch (IllegalAccessException e) {
+                        break;
+                    }
 
 
                 } else if (numero == 4) {
                     consultas.top7EstilosDeCervezaConMejorAroma();
 
                 } else if (numero == 5) {
-                    consultas.top5CervezasConMasReviews();
+                    try {
+                        consultas.top5CervezasConMasReviews();
+                    } catch (IllegalAccessException e) {
+                        break;
+                    }
                 } else {
                     System.out.println("error");
                 }

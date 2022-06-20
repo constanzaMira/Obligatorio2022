@@ -22,7 +22,18 @@ public class Review implements Comparable<Review> {
 
     private User user;
 
+    private Brewery brewery;
+
+    public Brewery getBrewery() {
+        return brewery;
+    }
+
+    public void setBrewery(Brewery brewery) {
+        this.brewery = brewery;
+    }
+
     private Long breweryId;
+
 
     public Review(long id, Date date, double overallScore, double appearanceScore, double aromaScore, double palateScore, double flavourScore, User user, Long breweryId) {
         this.id = id;
@@ -100,13 +111,6 @@ public class Review implements Comparable<Review> {
         this.user = user;
     }
 
-    public Long getBrewery() {
-        return breweryId;
-    }
-
-    public void setBrewery(Long brewery) {
-        this.breweryId = brewery;
-    }
 
     @Override
     public boolean equals(Object obj) {
