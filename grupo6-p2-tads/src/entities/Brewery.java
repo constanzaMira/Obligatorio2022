@@ -2,14 +2,22 @@ package entities;
 
 import uy.edu.um.prog2.tad.arraylist.ArrayList;
 import uy.edu.um.prog2.tad.arraylist.MyArrayList;
-import uy.edu.um.prog2.tad.linkedlist.LinkedList;
-import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 public class Brewery {// son las casas de cerveza
 
     private long id;
 
+    private int cantReviews=0;
     private String name;
+
+    public int getCantReviews() {
+        return cantReviews;
+    }
+
+    public int setCantReviews(int cantReviews) {
+        this.cantReviews = cantReviews;
+        return cantReviews;
+    }
 
     private MyArrayList<Long> beersId;
 
