@@ -1,12 +1,12 @@
 package entities;
 
-import exceptions.Fechainvalida;
+//import exceptions.Fechainvalida;
 import uy.edu.um.prog2.tad.hash.HashTable;
 import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 import uy.edu.um.prog2.tad.heap.Heap;
 import uy.edu.um.prog2.tad.linkedlist.LinkedList;
 import uy.edu.um.prog2.tad.linkedlist.MyList;
-import uy.edu.um.prog2.tad.mergesort.MergeSortImp;
+
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,7 +17,6 @@ import java.util.Scanner;
 public class Consultas {
 
     private HashTable<Long, Brewery> breweries = new MyHashTableImp<>(300000);
-
     private HashTable<Long, Beer> beers = new MyHashTableImp<>(200000);
 
 
@@ -33,10 +32,10 @@ public class Consultas {
         return breweries;
     }
 
-    public void diezCasasDeCervezaConMasResenias() throws Fechainvalida, IllegalAccessException {
+    public void diezCasasDeCervezaConMasResenias() throws  IllegalAccessException {
         Heap<Long,Brewery> top10 = new Heap<>(1);
         Scanner scanner= new Scanner(System.in);
-        System.out.println("Ingrese una año en formato yyyy");
+        System.out.println("Ingrese un año en formato yyyy");
 
         String fecha = scanner.next();
 
@@ -47,20 +46,28 @@ public class Consultas {
                         String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(m).getDate());
                         if(dateString1.equals(fecha)){
                             if (getBreweries()!=null){
-                                int tamanio=beers.getByIndex(i).getReviewsId().get(m).getBrewery().setCantReviews(beers.getByIndex(i).getReviewsId().get(m).getBrewery().getCantReviews()+1);
-                                top10.insert((long) tamanio,getBeers().getByIndex(i).getReviewsId().get(m).getBrewery());
+                                Long brewId=beers.getByIndex(i).getReviewsId().get(m).getBreweryId();
+                                breweries.get(brewId).setCantReviews(breweries.get(brewId).getCantReviews()+1);
+
                             }
                         }
                     }
                 }
             }
+        for(int i=0; i< breweries.size();i++){
+            top10.insert((long) breweries.getByIndex(i).getCantReviews(),breweries.getByIndex(i));
+        }
 
         for (int j=0; j<10;j++){
             System.out.println("Id: "+ top10.getContenido().get(0).getData().getId() +
-                    "    Nombre: "+ top10.getContenido().get(0).getData().getName() +    "    Cantidad de resenias: "
+                    "   Nombre: "+ top10.getContenido().get(0).getData().getName() +    "   Cantidad de resenias: "
                     + top10.getContenido().get(0).getKey());
 
             top10.delete(top10.getContenido().get(0).getKey());
+        }
+
+        for(int i=0 ; i<breweries.size();i++){
+            breweries.getByIndex(i).setCantReviews(0);
         }
     }
 

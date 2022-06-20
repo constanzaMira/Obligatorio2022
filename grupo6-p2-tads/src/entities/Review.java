@@ -34,6 +34,13 @@ public class Review implements Comparable<Review> {
 
     private Long breweryId;
 
+    public Long getBreweryId() {
+        return breweryId;
+    }
+
+    public void setBreweryId(Long breweryId) {
+        this.breweryId = breweryId;
+    }
 
     public Review(long id, Date date, double overallScore, double appearanceScore, double aromaScore, double palateScore, double flavourScore, User user, Long breweryId) {
         this.id = id;
