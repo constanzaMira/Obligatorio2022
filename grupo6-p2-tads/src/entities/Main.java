@@ -1,6 +1,6 @@
 package entities;
 
-import exceptions.Fechainvalida;
+
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -23,7 +23,7 @@ public class Main {
 
 
             }
-            if(cargaDatos=true){
+            if(cargaDatos==true){
                 if (numero0 == 2) {
                     Scanner leer = new Scanner(System.in);
                     System.out.println("1. 10 casas de cervezas con mas resenias");
@@ -60,13 +60,11 @@ public class Main {
                             break;
                         }
                     } else {
-                        System.out.println("error");
-                    }
-                }
-                if (numero0 == 3) {
-                        System.exit(0);
-                    }
+                        System.out.println("error");}
 
+                if(numero0==3){
+                    System.exit(0);}
+                }
 
                 }
 

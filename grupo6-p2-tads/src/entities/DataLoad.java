@@ -12,7 +12,7 @@ import java.util.Date;
 public class DataLoad {
     public static void DataLoad(HashTable<Long, Brewery> breweries, HashTable<Long, Beer> beers) throws IOException {
 
-        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
+        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_test.csv";
         BufferedReader reader = null;
         String line = "";
         boolean comenzar = false;
@@ -154,12 +154,12 @@ public class DataLoad {
                 }
                 comenzar = true;
 
-                percentage = (progreso/1586614)*100;
-                System.out.println(String.format("%.2f", (percentage)).concat("%"));
+                //percentage = (progreso/1586614)*100;
+                //System.out.println(String.format("%.2f", (percentage)).concat("%"));
                 progreso++;
             }
             tiempoFinal = System.currentTimeMillis();
-            System.out.println("Tiempo: ".concat(Long.toString((tiempoFinal-tiempoInicio)/1000).concat("s")));
+            System.out.println("Tiempo: " + (tiempoFinal-tiempoInicio) + "milisegundos");
         }
         catch (Exception e) {
             e.printStackTrace();

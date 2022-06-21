@@ -4,8 +4,6 @@ package entities;
 import uy.edu.um.prog2.tad.hash.HashTable;
 import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 import uy.edu.um.prog2.tad.heap.Heap;
-import uy.edu.um.prog2.tad.linkedlist.LinkedList;
-import uy.edu.um.prog2.tad.linkedlist.MyList;
 
 
 import java.io.IOException;
@@ -101,7 +99,6 @@ public class Consultas {
 
         try {
             fechai=dateFormat.parse(fecha);
-
             fechaf=dateFormat1.parse(fecha0);
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -110,12 +107,13 @@ public class Consultas {
         for (int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
                 for(int j=0; j<beers.getByIndex(i).getReviewsId().size();j++)
-                    if(beers.getByIndex(i).getReviewsId().get(j)!=null){
+                    if(beers.getByIndex(i).getReviewsId().get(j)!=null && beers.getByIndex(i).getAbv()!=0){
+                        SimpleDateFormat dateString=new SimpleDateFormat("dd/MM/yyyy");
+                        String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
                         if (beers.getByIndex(i).getReviewsId().get(j).getDate().after(fechai) &&
                                 beers.getByIndex(i).getReviewsId().get(j).getDate().before(fechaf)){
                             contador++;}
-                        SimpleDateFormat dateString=new SimpleDateFormat("dd/MM/yyyy");
-                        String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
+
                         if( fecha.equals(dateString1) || fecha0.equals(dateString1)){
                             contador++;
                         }// ver por que me da 14162 entre 01/01/2002 y 01/01/2005
@@ -134,14 +132,23 @@ public class Consultas {
     }
 
     public void top5CervezasConMasReviews() throws IllegalAccessException {
+        long tiempoInicio= System.currentTimeMillis();
+        long tiempoFinal;
+
         Heap<Long,Beer> top5 = new Heap<>(1);
         for(int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
+                //System.out.println("cerveza" + i);
                 int tamanio=getBeers().getByIndex(i).getReviewsId().size();
                 top5.insert((long) tamanio,getBeers().getByIndex(i));
-                for (int m=0; m< getBeers().getByIndex(i).getReviewsId().size();m++){
+                //System.out.println("tamanio" + tamanio);
+                for (int m=0; m< tamanio;m++){
+                    System.out.println("  review" + m);
                     if(beers.getByIndex(i).getReviewsId().get(m)!=null){
-                        getBeers().getByIndex(i).setPuntaje((int) (getBeers().getByIndex(i).getPuntaje() + getBeers().getByIndex(i).getReviewsId().get(m).getOverallScore()));
+                        double puntaje= beers.getByIndex(i).getReviewsId().get(m).getOverallScore();
+                        beers.getByIndex(i).agregarPuntaje( puntaje);
+                        //System.out.println(puntaje);
+                        //System.out.println("suma total"+beers.getByIndex(i).getPuntaje());
                     }
                 }
             }
@@ -150,13 +157,16 @@ public class Consultas {
         //recorro e imprimo top 5
 
         for (int j=0; j<5;j++){
+            double prom= top5.getContenido().get(0).getData().getPuntaje()/ top5.getContenido().get(0).getKey();
             System.out.println("Nombre: "+ top5.getContenido().get(0).getData().getName() +
                     "    Cantidad reviews: "+ top5.getContenido().get(0).getKey() +    "    Puntaje general promedio: "
-                    + top5.getContenido().get(0).getData().getPuntaje()/top5.getContenido().get(0).getData().getReviewsId().size()  );
+                    + prom);
 
             top5.delete(top5.getContenido().get(0).getKey()); // los promedios estan dando mal
 
         }
+        tiempoFinal = System.currentTimeMillis();
+        System.out.println("Tiempo: " + (tiempoFinal-tiempoInicio) + " milisegundos");
     }
 
 
