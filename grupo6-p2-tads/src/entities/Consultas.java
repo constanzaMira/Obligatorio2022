@@ -38,7 +38,7 @@ public class Consultas {
         String fecha = scanner.next();
 
         for(int i=0; i<beers.size();i++){
-            if (beers.getByIndex(i)!=null){
+            if (beers.getByIndex(i)!=null ){// beers.getByIndex(i).getAbv()!=0 que pasa si el Abv es null aca?
                 for (int m=0; m< getBeers().getByIndex(i).getReviewsId().size();m++){
                         SimpleDateFormat dateString=new SimpleDateFormat("yyyy");
                         String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(m).getDate());
@@ -138,17 +138,15 @@ public class Consultas {
         Heap<Long,Beer> top5 = new Heap<>(1);
         for(int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
-                //System.out.println("cerveza" + i);
+
                 int tamanio=getBeers().getByIndex(i).getReviewsId().size();
                 top5.insert((long) tamanio,getBeers().getByIndex(i));
-                //System.out.println("tamanio" + tamanio);
+
                 for (int m=0; m< tamanio;m++){
-                    System.out.println("  review" + m);
                     if(beers.getByIndex(i).getReviewsId().get(m)!=null){
                         double puntaje= beers.getByIndex(i).getReviewsId().get(m).getOverallScore();
                         beers.getByIndex(i).agregarPuntaje( puntaje);
-                        //System.out.println(puntaje);
-                        //System.out.println("suma total"+beers.getByIndex(i).getPuntaje());
+
                     }
                 }
             }
@@ -158,11 +156,14 @@ public class Consultas {
 
         for (int j=0; j<5;j++){
             double prom= top5.getContenido().get(0).getData().getPuntaje()/ top5.getContenido().get(0).getKey();
+            String prom1= String.valueOf(prom);
+            String first4char = prom1.substring(0,6);
+
             System.out.println("Nombre: "+ top5.getContenido().get(0).getData().getName() +
                     "    Cantidad reviews: "+ top5.getContenido().get(0).getKey() +    "    Puntaje general promedio: "
-                    + prom);
+                    + first4char);
 
-            top5.delete(top5.getContenido().get(0).getKey()); // los promedios estan dando mal
+            top5.delete(top5.getContenido().get(0).getKey());
 
         }
         tiempoFinal = System.currentTimeMillis();

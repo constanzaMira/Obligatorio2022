@@ -12,7 +12,7 @@ import java.util.Date;
 public class DataLoad {
     public static void DataLoad(HashTable<Long, Brewery> breweries, HashTable<Long, Beer> beers) throws IOException {
 
-        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_test.csv";
+        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
         BufferedReader reader = null;
         String line = "";
         boolean comenzar = false;
