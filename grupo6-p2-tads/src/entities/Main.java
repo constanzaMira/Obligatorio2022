@@ -18,11 +18,10 @@ public class Main {
             System.out.println("3. Exit");
             int numero0 = leer0.nextInt();
             if (numero0 == 1) {
-                    consultas = new Consultas();
-                    cargaDatos=true;
-            }
-            if(cargaDatos==true){
-                if (numero0 == 2) {
+                consultas = new Consultas();
+                cargaDatos=true;
+            } else if (numero0==2) {
+                if(cargaDatos==true){
                     Scanner leer = new Scanner(System.in);
                     System.out.println("1. 10 casas de cervezas con mas resenias");
                     System.out.println("2. Top 15 catadores con mas resenias");
@@ -39,13 +38,11 @@ public class Main {
                         }
                     } else if (numero == 2) {
                         consultas.top15CatadoresConMasResenias();
-
                     } else if (numero == 3) {
                         try {
                             consultas.cantidadDeReviewsEnRango();
                         } catch (IllegalAccessException e) {
-                            break;
-                        }
+                            break;}
 
 
                     } else if (numero == 4) {
@@ -55,22 +52,18 @@ public class Main {
                         try {
                             consultas.top5CervezasConMasReviews();
                         } catch (IllegalAccessException e) {
-                            break;
-                        }
+                            break;}
                     } else {
-                        System.out.println("error");
-                    }
+                        System.out.println("error");}
                 }
-            }
-            else if(numero0==3){
+            } else if (numero0==3) {
                 System.exit(0);
-            }else{
-                System.out.println("error");
-                }
-
+            } else {
+                System.out.println("Error");
+                break;
             }
-
-        }// que pasa si pongo hola? solucionar
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         Main main = new Main();
