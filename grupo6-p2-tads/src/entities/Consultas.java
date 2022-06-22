@@ -43,15 +43,13 @@ public class Consultas {
                         SimpleDateFormat dateString=new SimpleDateFormat("yyyy");
                         String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(m).getDate());
                         if(dateString1.equals(fecha)){
-                            if (getBreweries()!=null){
                                 Long brewId=beers.getByIndex(i).getReviewsId().get(m).getBreweryId();
                                 breweries.get(brewId).setCantReviews(breweries.get(brewId).getCantReviews()+1);
-
-                            }
                         }
                     }
                 }
             }
+
         for(int i=0; i< breweries.size();i++){
             top10.insert((long) breweries.getByIndex(i).getCantReviews(),breweries.getByIndex(i));
         }
@@ -97,6 +95,7 @@ public class Consultas {
         SimpleDateFormat dateFormat1= new SimpleDateFormat("dd/MM/yyyy");
         Date fechaf= null;
 
+
         try {
             fechai=dateFormat.parse(fecha);
             fechaf=dateFormat1.parse(fecha0);
@@ -107,7 +106,7 @@ public class Consultas {
         for (int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
                 for(int j=0; j<beers.getByIndex(i).getReviewsId().size();j++)
-                    if(beers.getByIndex(i).getReviewsId().get(j)!=null && beers.getByIndex(i).getAbv()!=0){
+                    if(beers.getByIndex(i).getReviewsId().get(j)!=null && beers.getByIndex(i).getAbv()!=0 && beers.getByIndex(i).getReviewsId().get(j).getUser()!=null ){
                         SimpleDateFormat dateString=new SimpleDateFormat("dd/MM/yyyy");
                         String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
                         if (beers.getByIndex(i).getReviewsId().get(j).getDate().after(fechai) &&
