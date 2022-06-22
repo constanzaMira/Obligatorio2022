@@ -20,8 +20,6 @@ public class Main {
             if (numero0 == 1) {
                     consultas = new Consultas();
                     cargaDatos=true;
-
-
             }
             if(cargaDatos==true){
                 if (numero0 == 2) {
@@ -60,17 +58,19 @@ public class Main {
                             break;
                         }
                     } else {
-                        System.out.println("error");}
-
-                if(numero0==3){
-                    System.exit(0);}
+                        System.out.println("error");
+                    }
                 }
-
+            }
+            else if(numero0==3){
+                System.exit(0);
+            }else{
+                System.out.println("error");
                 }
 
             }
 
-        }
+        }// que pasa si pongo hola? solucionar
 
     public static void main(String[] args) throws IOException {
         Main main = new Main();

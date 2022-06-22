@@ -106,7 +106,7 @@ public class Consultas {
         for (int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
                 for(int j=0; j<beers.getByIndex(i).getReviewsId().size();j++)
-                    if(beers.getByIndex(i).getReviewsId().get(j)!=null && beers.getByIndex(i).getAbv()!=0 && beers.getByIndex(i).getReviewsId().get(j).getUser()!=null ){
+                    if(beers.getByIndex(i).getReviewsId().get(j)!=null && beers.getByIndex(i).getAbv()!=0 ){
                         SimpleDateFormat dateString=new SimpleDateFormat("dd/MM/yyyy");
                         String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
                         if (beers.getByIndex(i).getReviewsId().get(j).getDate().after(fechai) &&
@@ -167,6 +167,11 @@ public class Consultas {
         }
         tiempoFinal = System.currentTimeMillis();
         System.out.println("Tiempo: " + (tiempoFinal-tiempoInicio) + " milisegundos");
+
+
+        for(int i=0 ; i<beers.size();i++){
+            beers.getByIndex(i).setPuntaje(0);
+        }
     }
 
 
