@@ -113,7 +113,7 @@ public class Consultas {
                                 beers.getByIndex(i).getReviewsId().get(j).getDate().before(fechaf)){
                             contador++;}
 
-                        if( fecha.equals(dateString1) || fecha0.equals(dateString1)){
+                        if( fecha0.equals(dateString1)){
                             contador++;
                         }// ver por que me da 14162 entre 01/01/2002 y 01/01/2005
                     }
