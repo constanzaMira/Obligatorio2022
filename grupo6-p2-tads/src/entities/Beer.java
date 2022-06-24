@@ -14,14 +14,18 @@ public class Beer {
 
     private double abv;
 
-    private long puntaje=0;
+    private double puntaje;
 
-    public long getPuntaje() {
+    public double getPuntaje() {
         return puntaje;
     }
 
-    public void setPuntaje(long puntaje) {
+    public void setPuntaje(double puntaje) {
         this.puntaje = puntaje;
+    }
+
+    public void agregarPuntaje(double puntaje1){
+        this.puntaje+=puntaje1;
     }
 
     private MyArrayList<Review> reviews;
@@ -33,6 +37,7 @@ public class Beer {
         this.abv = abv;
         this.reviews = new ArrayList<>(1000);
         this.style = style;
+        this.puntaje=0;
     }
 
     public MyArrayList<Review> getReviewsId() {

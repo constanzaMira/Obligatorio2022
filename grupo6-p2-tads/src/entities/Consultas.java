@@ -1,12 +1,10 @@
 package entities;
 
-import exceptions.Fechainvalida;
+//import exceptions.Fechainvalida;
 import uy.edu.um.prog2.tad.hash.HashTable;
 import uy.edu.um.prog2.tad.hash.MyHashTableImp;
 import uy.edu.um.prog2.tad.heap.Heap;
-import uy.edu.um.prog2.tad.linkedlist.LinkedList;
-import uy.edu.um.prog2.tad.linkedlist.MyList;
-import uy.edu.um.prog2.tad.mergesort.MergeSortImp;
+
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,7 +15,6 @@ import java.util.Scanner;
 public class Consultas {
 
     private HashTable<Long, Brewery> breweries = new MyHashTableImp<>(300000);
-
     private HashTable<Long, Beer> beers = new MyHashTableImp<>(200000);
 
 
@@ -33,34 +30,40 @@ public class Consultas {
         return breweries;
     }
 
-    public void diezCasasDeCervezaConMasResenias() throws Fechainvalida, IllegalAccessException {
+    public void diezCasasDeCervezaConMasResenias() throws  IllegalAccessException {
         Heap<Long,Brewery> top10 = new Heap<>(1);
         Scanner scanner= new Scanner(System.in);
-        System.out.println("Ingrese una año en formato yyyy");
+        System.out.println("Ingrese un año en formato yyyy");
 
         String fecha = scanner.next();
 
         for(int i=0; i<beers.size();i++){
-            if (beers.getByIndex(i)!=null){
+            if (beers.getByIndex(i)!=null ){// beers.getByIndex(i).getAbv()!=0 que pasa si el Abv es null aca?
                 for (int m=0; m< getBeers().getByIndex(i).getReviewsId().size();m++){
                         SimpleDateFormat dateString=new SimpleDateFormat("yyyy");
                         String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(m).getDate());
                         if(dateString1.equals(fecha)){
-                            if (getBreweries()!=null){
-                                int tamanio=beers.getByIndex(i).getReviewsId().get(m).getBrewery().setCantReviews(beers.getByIndex(i).getReviewsId().get(m).getBrewery().getCantReviews()+1);
-                                top10.insert((long) tamanio,getBeers().getByIndex(i).getReviewsId().get(m).getBrewery());
-                            }
+                                Long brewId=beers.getByIndex(i).getReviewsId().get(m).getBreweryId();
+                                breweries.get(brewId).setCantReviews(breweries.get(brewId).getCantReviews()+1);
                         }
                     }
                 }
             }
 
+        for(int i=0; i< breweries.size();i++){
+            top10.insert((long) breweries.getByIndex(i).getCantReviews(),breweries.getByIndex(i));
+        }
+
         for (int j=0; j<10;j++){
             System.out.println("Id: "+ top10.getContenido().get(0).getData().getId() +
-                    "    Nombre: "+ top10.getContenido().get(0).getData().getName() +    "    Cantidad de resenias: "
+                    "   Nombre: "+ top10.getContenido().get(0).getData().getName() +    "   Cantidad de resenias: "
                     + top10.getContenido().get(0).getKey());
 
             top10.delete(top10.getContenido().get(0).getKey());
+        }
+
+        for(int i=0 ; i<breweries.size();i++){
+            breweries.getByIndex(i).setCantReviews(0);
         }
     }
 
@@ -92,9 +95,9 @@ public class Consultas {
         SimpleDateFormat dateFormat1= new SimpleDateFormat("dd/MM/yyyy");
         Date fechaf= null;
 
+
         try {
             fechai=dateFormat.parse(fecha);
-
             fechaf=dateFormat1.parse(fecha0);
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -103,13 +106,14 @@ public class Consultas {
         for (int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
                 for(int j=0; j<beers.getByIndex(i).getReviewsId().size();j++)
-                    if(beers.getByIndex(i).getReviewsId().get(j)!=null){
+                    if(beers.getByIndex(i).getReviewsId().get(j)!=null && beers.getByIndex(i).getAbv()!=0 ){
+                        SimpleDateFormat dateString=new SimpleDateFormat("dd/MM/yyyy");
+                        String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
                         if (beers.getByIndex(i).getReviewsId().get(j).getDate().after(fechai) &&
                                 beers.getByIndex(i).getReviewsId().get(j).getDate().before(fechaf)){
                             contador++;}
-                        SimpleDateFormat dateString=new SimpleDateFormat("dd/MM/yyyy");
-                        String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
-                        if( fecha.equals(dateString1) || fecha0.equals(dateString1)){
+
+                        if( fecha0.equals(dateString1)){
                             contador++;
                         }// ver por que me da 14162 entre 01/01/2002 y 01/01/2005
                     }
@@ -127,14 +131,21 @@ public class Consultas {
     }
 
     public void top5CervezasConMasReviews() throws IllegalAccessException {
+        long tiempoInicio= System.currentTimeMillis();
+        long tiempoFinal;
+
         Heap<Long,Beer> top5 = new Heap<>(1);
         for(int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
+
                 int tamanio=getBeers().getByIndex(i).getReviewsId().size();
                 top5.insert((long) tamanio,getBeers().getByIndex(i));
-                for (int m=0; m< getBeers().getByIndex(i).getReviewsId().size();m++){
+
+                for (int m=0; m< tamanio;m++){
                     if(beers.getByIndex(i).getReviewsId().get(m)!=null){
-                        getBeers().getByIndex(i).setPuntaje((int) (getBeers().getByIndex(i).getPuntaje() + getBeers().getByIndex(i).getReviewsId().get(m).getOverallScore()));
+                        double puntaje= beers.getByIndex(i).getReviewsId().get(m).getOverallScore();
+                        beers.getByIndex(i).agregarPuntaje( puntaje);
+
                     }
                 }
             }
@@ -143,12 +154,23 @@ public class Consultas {
         //recorro e imprimo top 5
 
         for (int j=0; j<5;j++){
+            double prom= top5.getContenido().get(0).getData().getPuntaje()/ top5.getContenido().get(0).getKey();
+            String prom1= String.valueOf(prom);
+            String first4char = prom1.substring(0,6);
+
             System.out.println("Nombre: "+ top5.getContenido().get(0).getData().getName() +
                     "    Cantidad reviews: "+ top5.getContenido().get(0).getKey() +    "    Puntaje general promedio: "
-                    + top5.getContenido().get(0).getData().getPuntaje()/top5.getContenido().get(0).getData().getReviewsId().size()  );
+                    + first4char);
 
-            top5.delete(top5.getContenido().get(0).getKey()); // los promedios estan dando mal
+            top5.delete(top5.getContenido().get(0).getKey());
 
+        }
+        tiempoFinal = System.currentTimeMillis();
+        System.out.println("Tiempo: " + (tiempoFinal-tiempoInicio) + " milisegundos");
+
+
+        for(int i=0 ; i<beers.size();i++){
+            beers.getByIndex(i).setPuntaje(0);
         }
     }
 

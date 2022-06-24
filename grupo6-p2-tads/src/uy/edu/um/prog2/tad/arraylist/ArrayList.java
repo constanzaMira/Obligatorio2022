@@ -72,6 +72,7 @@ public class ArrayList<T> implements MyArrayList<T> {
 
     }
 
+
     @Override
     public void remove(int position) throws IndexOutOfBounds {
         if (position == this.size - 1) {

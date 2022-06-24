@@ -19,4 +19,6 @@ public interface MyArrayList<T> {
     int getIndex(T value);
 
 
+
+
 }
