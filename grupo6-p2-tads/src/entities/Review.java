@@ -118,21 +118,14 @@ public class Review implements Comparable<Review> {
         this.user = user;
     }
 
-
     @Override
     public boolean equals(Object obj) {
         boolean exit = false;
         if (obj instanceof Review){
             Review tmp = (Review) obj;
             exit = this.getId() == tmp.getId();
-            //exit = Objects.equals(this.getNld(), tmp.getNld());
         }
         return exit;
-    }
-
-    @Override
-    public int hashCode() {
-        return Long.hashCode(this.id);
     }
 
     @Override

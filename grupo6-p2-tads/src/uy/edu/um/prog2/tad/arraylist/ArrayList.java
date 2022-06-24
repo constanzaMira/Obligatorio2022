@@ -72,7 +72,6 @@ public class ArrayList<T> implements MyArrayList<T> {
 
     }
 
-
     @Override
     public void remove(int position) throws IndexOutOfBounds {
         if (position == this.size - 1) {
@@ -114,6 +113,29 @@ public class ArrayList<T> implements MyArrayList<T> {
             if (this.get(i).equals(value)) {
                 index = i;
                 break;
+            }
+        }
+        return index;
+    }
+
+    @Override
+    public int getIndex(T value, int direction) {
+        int index = -1;
+
+        if (direction == 1) {
+            for (int i = 0; i < this.size; i++) {
+                if (this.get(i).equals(value)) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        if (direction == -1) {
+            for (int i = this.size - 1; i >= 0; i--) {
+                if (this.get(i).equals(value)) {
+                    index = i;
+                    break;
+                }
             }
         }
         return index;

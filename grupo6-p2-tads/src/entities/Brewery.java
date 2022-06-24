@@ -3,11 +3,12 @@ package entities;
 import uy.edu.um.prog2.tad.arraylist.ArrayList;
 import uy.edu.um.prog2.tad.arraylist.MyArrayList;
 
-public class Brewery {// son las casas de cerveza
+public class Brewery {
 
     private long id;
 
     private int cantReviews=0;
+
     private String name;
 
     public int getCantReviews() {
@@ -60,13 +61,7 @@ public class Brewery {// son las casas de cerveza
         if (obj instanceof Brewery){
             Brewery tmp = (Brewery) obj;
             exit = this.getId() == tmp.getId();
-            //exit = Objects.equals(this.getNld(), tmp.getNld());
         }
         return exit;
-    }
-
-    @Override
-    public int hashCode() {
-        return Long.hashCode(this.id);
     }
 }

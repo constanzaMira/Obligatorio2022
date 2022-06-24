@@ -18,7 +18,6 @@ public interface MyArrayList<T> {
 
     int getIndex(T value);
 
-
-
+    int getIndex(T value, int direction);
 
 }

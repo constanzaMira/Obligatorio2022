@@ -80,6 +80,14 @@ public class Beer {
         this.abv = abv;
     }
 
+    public MyArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(MyArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public void addReview(Review review) {
         this.reviews.add(review);
     }
@@ -92,9 +100,5 @@ public class Beer {
             //exit = Objects.equals(this.getNld(), tmp.getNld());
         }
         return exit;
-    }
-    @Override
-    public int hashCode() {
-        return Long.hashCode(this.id);
     }
 }

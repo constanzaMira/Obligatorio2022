@@ -15,9 +15,6 @@ public interface HashTable<K,V>{
 
     int size();
 
-    void set(K key, V value) throws NoExiste, IllegalAccessException, IndexOutOfBounds;
-
     V getByIndex(int index) throws IllegalAccessException;
-
 
 }

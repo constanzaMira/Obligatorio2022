@@ -80,9 +80,9 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
         if(key==null || value==null){
             throw new IllegalAccessException();
         }
-            //aplicar funcion de hash a la key para determinar posicion
+        //aplicar funcion de hash a la key para determinar posicion
         int position= Math.abs(key.hashCode())% elements.length;   //lo que me devuelve el hash code aplico el modulo del tamano de tabla
-                                                    //llama a la funcion hashcode del objeto que yo pase como primer argumento(k.hashcode)
+        //llama a la funcion hashcode del objeto que yo pase como primer argumento(k.hashcode)
         float division= (float)cant_elementos/elements.length;
         if(division>= 0.8f){
             elements=redimensionarArreglo(elements);
@@ -97,8 +97,8 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
             int nuevaPosicion= 0;
 
             do {
-                nuevaPosicion= (key.hashCode() + colison(nroColision)) % elements.length;
-                nroColision ++;
+                nuevaPosicion= (Math.abs(key.hashCode()) + colison(nroColision)) % elements.length;
+                nroColision++;
 
             } while(this.elements[nuevaPosicion]!= null && !elements[nuevaPosicion].isDelete()
                     && nuevaPosicion < elements.length);
@@ -107,9 +107,9 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
                 elements[nuevaPosicion] = node; //antes de chekear esto fijarse que factor de carga este por debajo de el freshcod que voy a definir, aumentar tamanio y dsp operar
                 cant_elementos++;
             }
-            }
-        this.keys.add(key);
         }
+        this.keys.add(key);
+    }
 
 
     public V get(K key) throws IllegalAccessException{
@@ -126,13 +126,13 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
                 int nuevaPosicion= 0;
 
                 do {
-                    nuevaPosicion= (key.hashCode() + colison(nroColision)) % elements.length;
+                    nuevaPosicion= (Math.abs(key.hashCode()) + colison(nroColision)) % elements.length;
                     nroColision ++;
 
                 } while(elements[nuevaPosicion]!= null && this.elements[position].getKey().equals(key)
                         && nroColision < elements.length);
                 if(nroColision< elements.length){
-                    if(elements[nuevaPosicion]!= null && this.elements[nuevaPosicion].isDelete() ){
+                    if(elements[nuevaPosicion]!= null && !this.elements[nuevaPosicion].isDelete() ){
                         exit= this.elements[nuevaPosicion].getValue();
                     }
                 }
@@ -192,70 +192,6 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
     @Override
     public int size() {
         return cant_elementos;
-    }
-
-    @Override
-    public void set(K key, V value) throws NoExiste, IllegalAccessException, IndexOutOfBounds {
-        if (this.get(key).equals(value)) {
-            int position= Math.abs(key.hashCode())% elements.length;
-            //V exit= null;
-            if(this.elements[position]!=null){//estoy accediendo a una posicion de una clave que tiene algo
-                if(!this.elements[position].isDelete() && this.elements[position].getKey().equals(key)){//encontre valor
-                    this.elements[position].setDelete(true);
-                }else {//elemento borrado pudo haber habido una colision
-                    int nroColision=1;
-                    int nuevaPosicion= 0;
-
-                    do {
-                        nuevaPosicion= (key.hashCode() + colison(nroColision)) % elements.length;
-                        nroColision ++;
-
-                    } while(elements[nuevaPosicion]!= null && this.elements[position].getKey().equals(key)
-                            && nroColision < elements.length);
-
-                    if(nroColision< elements.length){
-                        if(elements[nuevaPosicion]!= null && this.elements[nuevaPosicion].isDelete() ){
-                            throw new NoExiste();
-                        }
-                    }
-                }
-
-            }
-            cant_elementos--;
-
-            if(key==null || value==null){
-                throw new IllegalAccessException();
-            }
-            //aplicar funcion de hash a la key para determinar posicion
-            position= Math.abs(key.hashCode())% elements.length;   //lo que me devuelve el hash code aplico el modulo del tamano de tabla
-            //llama a la funcion hashcode del objeto que yo pase como primer argumento(k.hashcode)
-            float division= (float)cant_elementos/elements.length;
-            if(division>= 0.8f){
-                elements=redimensionarArreglo(elements);
-            }
-            // verifico si la poscion esta libre para colocar elemento
-            if (elements[position]==null || elements[position].isDelete() ||  elements[position].getKey().equals(key) ){
-                HashNode<K,V> node=new HashNode<>(key, value);
-                elements[position]= node;
-                cant_elementos++;
-            }else{
-                int nroColision=1;
-                int nuevaPosicion= 0;
-
-                do {
-                    nuevaPosicion= (key.hashCode() + colison(nroColision)) % elements.length;
-                    nroColision ++;
-
-                } while(this.elements[nuevaPosicion]!= null && !elements[nuevaPosicion].isDelete()
-                        && nuevaPosicion < elements.length);
-                if (nroColision< elements.length) {
-                    HashNode<K, V> node = new HashNode<>(key, value);
-                    elements[nuevaPosicion] = node; //antes de chekear esto fijarse que factor de carga este por debajo de el freshcod que voy a definir, aumentar tamanio y dsp operar
-                    cant_elementos++;
-                }
-            }
-        }
-
     }
 
     @Override

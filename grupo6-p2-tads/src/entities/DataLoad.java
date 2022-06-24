@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.util.Date;
 
 public class DataLoad {
-    public static void DataLoad(HashTable<Long, Brewery> breweries, HashTable<Long, Beer> beers) throws IOException {
+    public static void DataLoad(HashTable<Long, Brewery> breweries, HashTable<Long, Beer> beers, HashTable<String, User> users, HashTable<String, Style> styles) throws IOException {
 
-        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_test.csv";
+        System.out.println("--> CARGANDO DATOS...");
+        String file = "grupo6-p2-tads\\src\\entities\\beer_dataset_full.csv";
         BufferedReader reader = null;
         String line = "";
         boolean comenzar = false;
@@ -33,13 +34,10 @@ public class DataLoad {
         Long beer_beerId = null;
 
         User newUser;
-        Style newStyle;
+        Style newStyle = null;
         Beer newBeer;
         Brewery newBrewery;
         Review newReview;
-
-        double progreso = 0;
-        double percentage = 0;
 
         long tiempoInicio = System.currentTimeMillis();
         long tiempoFinal;
@@ -49,14 +47,15 @@ public class DataLoad {
             reader = new BufferedReader(new FileReader(file));
 
             while ((line = reader.readLine()) != null) {
+                boolean saltear = false;
                 if (comenzar) {
                     String[] fila = line.split(",");
-                    if(fila[12]!=null){
-                        for (int k = 0; k < fila.length; k++) {
-                            if (fila[k].length() == 0) {
-                                fila[k] = "0";
-                            }
+                    for (int k = 0; k < fila.length; k++) {
+                        if (fila[k].length() == 0) {
+                            saltear = true;
                         }
+                    }
+                    if (!saltear) {
                         if (fila.length == 14) {
 
                             review_id = Long.valueOf(fila[0]);
@@ -75,8 +74,7 @@ public class DataLoad {
                             beer_name = fila[11];
                             beer_abv = Double.valueOf(fila[12]);
                             beer_beerId = Long.valueOf(fila[13]);
-                        }
-                        else if (fila.length == 15){
+                        } else if (fila.length == 15) {
                             int j = 0;
 
                             for (int index = 0; index < fila.length; index++) {
@@ -89,20 +87,16 @@ public class DataLoad {
                             for (int index = 0; index < 14; index++) {
                                 if (index < j) {
                                     nuevaFila[index] = fila[index];
-                                }
-                                else if (index == j) {
+                                } else if (index == j) {
                                     String s = String.valueOf('"');
-                                    nuevaFila[index] = fila[index].concat(",".concat(fila[index+1])).replaceAll(s,"");
-                                }
-                                else {
-                                    nuevaFila[index] = fila[index+1];
+                                    nuevaFila[index] = fila[index].concat(",".concat(fila[index + 1])).replaceAll(s, "");
+                                } else {
+                                    nuevaFila[index] = fila[index + 1];
                                 }
                             }
                             fila = nuevaFila;
-                            //System.out.println(Arrays.asList(fila));
 
                             review_id = Long.valueOf(fila[0]);
-                            //System.out.println(review_id);
                             brewery_id = Long.valueOf(fila[1]);
                             brewery_name = fila[2];
                             review_time = new Date(Long.valueOf(fila[3]) * 1000);
@@ -121,9 +115,19 @@ public class DataLoad {
 
                         newUser = new User(review_profileName);
 
+                        if (!users.contains(review_profileName)) {
+                            users.put(review_profileName, newUser);
+                        } else {
+                            newUser = users.get(review_profileName);
+                        }
 
                         newStyle = new Style(beer_style);
 
+                        if (!styles.contains(beer_style)) {
+                            styles.put(beer_style, newStyle);
+                        } else {
+                            newStyle = styles.get(beer_style);
+                        }
 
                         newReview = new Review(review_id, review_time, review_overall, review_appearance, review_aroma, beer_palate, review_taste, newUser, brewery_id);
 
@@ -136,33 +140,24 @@ public class DataLoad {
                             newBrewery.addBeer(beer_beerId);
                             breweries.put(brewery_id, newBrewery);
                             beers.put(beer_beerId, newBeer);
-                        }
-                        else {
+                        } else {
                             newBrewery = breweries.get(brewery_id);
                             if (!beers.contains(beer_beerId)) {
                                 newBrewery.addBeer(beer_beerId);
-                                breweries.set(brewery_id, newBrewery);
                                 beers.put(beer_beerId, newBeer);
-                            }
-                            else {
+                            } else {
                                 newBeer = beers.get(beer_beerId);
                                 newBeer.addReview(newReview);
-                                beers.set(beer_beerId, newBeer);
-
                             }
                         }
-
                     }
-                    }
-
+                }
                 comenzar = true;
-
-                //percentage = (progreso/1586614)*100;
-                //System.out.println(String.format("%.2f", (percentage)).concat("%"));
-                progreso++;
             }
+            System.out.println("--> CARGA COMPLETA");
             tiempoFinal = System.currentTimeMillis();
-            System.out.println("Tiempo: " + (tiempoFinal-tiempoInicio) + "milisegundos");
+            System.out.println("Tiempo: ".concat(Long.toString((tiempoFinal-tiempoInicio)/1000).concat("s")));
+            System.out.println();
         }
         catch (Exception e) {
             e.printStackTrace();
