@@ -160,11 +160,12 @@ public class Consultas {
             fechai=dateFormat.parse(fecha);
             fechaf=dateFormat1.parse(fecha0);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            System.out.println("fecha incorrecta");
+            return;
         }
         tiempoInicio = System.currentTimeMillis();
         for (int i=0; i<beers.size();i++){
-            if (beers.getByIndex(i)!=null){
+            if (beers.getByIndex(i)!=null && beers.getByIndex(i).getAbv()!=0 ){
                 for(int j=0; j<beers.getByIndex(i).getReviewsId().size();j++)
                     if(beers.getByIndex(i).getReviewsId().get(j)!=null) {
                             SimpleDateFormat dateString = new SimpleDateFormat("dd/MM/yyyy");
@@ -173,8 +174,10 @@ public class Consultas {
                                     beers.getByIndex(i).getReviewsId().get(j).getDate().before(fechaf)) {
                                 contador++;
                             }
-                            if (fechar.equals(fecha0)) {
-                                contador++;}
+                            if(fechar.equals(fecha0)){
+                                contador++;
+                            }
+
                     }
             }
         }
