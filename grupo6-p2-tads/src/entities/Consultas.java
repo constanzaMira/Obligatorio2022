@@ -166,19 +166,16 @@ public class Consultas {
         for (int i=0; i<beers.size();i++){
             if (beers.getByIndex(i)!=null){
                 for(int j=0; j<beers.getByIndex(i).getReviewsId().size();j++)
-                    if(beers.getByIndex(i).getReviewsId().get(j)!=null && beers.getByIndex(i).getAbv()!=0 ){
-                        SimpleDateFormat dateString=new SimpleDateFormat("dd/MM/yyyy");
-                        String dateString1= dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
-                        if (beers.getByIndex(i).getReviewsId().get(j).getDate().after(fechai) &&
-                                beers.getByIndex(i).getReviewsId().get(j).getDate().before(fechaf)){
-                            contador++;}
-
-                        if( fecha0.equals(dateString1)){
-                            contador++;
-                        }
+                    if(beers.getByIndex(i).getReviewsId().get(j)!=null) {
+                            SimpleDateFormat dateString = new SimpleDateFormat("dd/MM/yyyy");
+                            String fechar = dateString.format(beers.getByIndex(i).getReviewsId().get(j).getDate());
+                            if (beers.getByIndex(i).getReviewsId().get(j).getDate().after(fechai) &&
+                                    beers.getByIndex(i).getReviewsId().get(j).getDate().before(fechaf)) {
+                                contador++;
+                            }
+                            if (fechar.equals(fecha0)) {
+                                contador++;}
                     }
-
-
             }
         }
         tiempoFinal = System.currentTimeMillis();
