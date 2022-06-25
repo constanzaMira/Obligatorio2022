@@ -129,7 +129,7 @@ public class MyHashTableImp<K,V> implements HashTable<K,V> {
                     nuevaPosicion= (Math.abs(key.hashCode()) + colison(nroColision)) % elements.length;
                     nroColision ++;
 
-                } while(elements[nuevaPosicion]!= null && !this.elements[position].getKey().equals(key)
+                } while(elements[nuevaPosicion]!= null && this.elements[position].getKey().equals(key)
                         && nroColision < elements.length);
                 if(nroColision< elements.length){
                     if(elements[nuevaPosicion]!= null && !this.elements[nuevaPosicion].isDelete() ){

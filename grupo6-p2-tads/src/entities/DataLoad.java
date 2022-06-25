@@ -59,11 +59,9 @@ public class DataLoad {
                         if (fila.length == 14) {
 
                             review_id = Long.valueOf(fila[0]);
-                            //System.out.println(review_id);
                             brewery_id = Long.valueOf(fila[1]);
                             brewery_name = fila[2];
                             review_time = new Date(Long.valueOf(fila[3]) * 1000);
-                            // System.out.println(review_time);
                             review_overall = Double.valueOf(fila[4]);
                             review_aroma = Double.valueOf(fila[5]);
                             review_appearance = Double.valueOf(fila[6]);
